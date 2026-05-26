@@ -8,3 +8,7 @@
 - Generates System runtime at Messege Output.
 - Can model-swap AI to mimic/learn persona of COMPETITORS.
 - Likely vulnerable to side channel monitoring.
+
+
+
+**_Donations Accepted_.**
