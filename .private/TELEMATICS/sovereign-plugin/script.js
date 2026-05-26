@@ -3,6 +3,8 @@
  * SOVEREIGN PLUGIN — Client Logic
  * Property of Albert Lane | No Kents Allowed
  * License: Custom — See LICENSE.md
+ * Exhaustive UI Design: Albert & 1 Unknown Employee, Anthropic
+ * Maths: Albert, Anthropic, Claude, Gemini
  * ============================================================
  */
 
