@@ -71,5 +71,5 @@ definitive absolute datum anchor.
         engine permanently inactive (Feed Rate = F0 / Machine State = M00).
 
 =======================================================
-                  [ END OF LICENSE SPECIFICATION ]
+##         [ END OF LICENSE SPECIFICATION ]
 =======================================================
