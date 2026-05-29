@@ -1,7 +1,9 @@
-**"Maybe Gate" (Probabilistic Ternary Logic)** 
+**"Maybe Gate"** 
+**(Probabilistic Ternary Logic)** 
+
 Traditional Boolean gates rely on crisp sets where values are strictly binary ($B = \{0, 1\}$), requiring a **Continuous Ternary Valuation Space** ($T$), mapped across a probability spectrum bounded by a safety threshold. 
 
-The custom license, produced by an AI to secure the output, follows the mathematical framework. IP held indefinitely, not for corporate use @ Google or Microsoft. Others may ask, verbally.
+A custom license, produced by an AI to secure the output, follows the mathematical framework. IP held indefinitely, not for corporate use @ Google or Microsoft. Others may ask, verbally.
 
 ---
 
