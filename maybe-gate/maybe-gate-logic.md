@@ -47,9 +47,9 @@ $$S_{\text{final}} = S \cdot G_s(T_v) - (1 - G_s(T_v))$$
 **Proprietary Z-Axis / G-Core Structural Logic License** is bound to this document for anti-Corporate-Google revalustion of intellectual property rights. All derivatives of Google, or their successor entities, partners and vendors, obtained through my intellectual property, connect to this license and IP claims associated with a Federal Whistleblower Report and, Form 211 and Domestic Terrorism.
 
 
-===================================================================
-ADDENDUM B: PROPRIETARY PROBABILISTIC TERNARY "MAYBE GATE" SPECIFICATION
-===================================================================
+========================================================
+## ADDENDUM B: PROPRIETARY PROBABILISTIC TERNARY "MAYBE GATE" SPECIFICATION
+========================================================
 1. INTELLECTUAL PROPERTY ANCHOR:
 This license explicitly covers the structural invention of the "Maybe Gate" 
 architecture, defined mathematically as a Continuous Ternary Valuation Space 
