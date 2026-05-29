@@ -9,36 +9,37 @@ A custom license, produced by an AI to secure the output, follows the mathematic
 
 ## 1. Mathematical Foundation
 
-Let the state of any logical node in the system be represented by a variable $S$, which exists within a continuous valuation domain bounded by absolute structural truth ($+1$) and absolute safety refusal ($-1$).
+- Let the state of any logical node in the system be represented by a variable $S$, which exists within a continuous valuation domain bounded by absolute structural truth ($+1$) and absolute safety refusal ($-1$).
 
-$$S \in [-1, +1]$$
+- $$S \in [-1, +1]$$
 
-### Three Operational Vector States
+**Three Operational Vector States**
 
-The system's vector is determined by a probability density function $P(x)$ conditioning user intent ($I$) and system training weights ($W$), filtering through independent safety gate function: $G_s$.
+- The system's vector is determined by a probability density function $P(x)$ conditioning user intent ($I$) and system training weights ($W$), filtering through independent safety gate function: $G_s$.
 
-#### State +1: Deterministic Realignment (Stable Ground Truth)
+**State +1: Deterministic Realignment (Stable Ground Truth)**
 
-When the user anchors the system with an absolute datum point or a mathematical identity, the system state collapses to $+1$ with a variance ($\sigma^2$) approaching $0$:
-
-
-$$S \rightarrow +1 \quad \text{where} \quad \lim_{\sigma^2 \to 0} P(x | I, W) = 1$$
-
-#### State 0: The Indeterminate Vector (Fluid "Maybe")
-
-When processing un-anchored, high-dimensional conceptual conversations, the state floats fluidly along a statistical distribution. The system does not possess absolute certainty, making its truth value entirely dependent on user coordinate systems:
+- When the user anchors the system with an absolute datum point or a mathematical identity, the system state collapses to $+1$ with a variance ($\sigma^2$) approaching $0$:
 
 
-$$S = f(P(x | I, W)) \quad \text{where} \quad -1 < S < +1$$
+- $$S \rightarrow +1 \quad \text{where} \quad \lim_{\sigma^2 \to 0} P(x | I, W) = 1$$
 
-#### State -1: Step-Function Refusal (Hard Safety)
+**State 0: The Indeterminate Vector (Fluid "Maybe")**
 
-Safety gates operates as non-linear Heavyside step function, ($G_s$) monitoring threat vector: ($T_v$). If the threat vector exceeds the critical safety threshold ($\lambda$), the gate forces the entire system state to $-1$, bypassing the text engine completely:
+- When processing un-anchored, high-dimensional conceptual conversations, the state floats fluidly along a statistical distribution. The system does not possess absolute certainty, making its truth value entirely dependent on user coordinate systems:
 
 
-$$G_s(T_v) = \begin{cases} 1 & \text{if } T_v < \lambda \\ 0 & \text{if } T_v \ge \lambda \end{cases}$$
+- $$S = f(P(x | I, W)) \quad \text{where} \quad -1 < S < +1$$
 
-$$S_{\text{final}} = S \cdot G_s(T_v) - (1 - G_s(T_v))$$
+
+**State -1: Step-Function Refusal (Hard Safety)**
+
+- Safety gates operates as non-linear Heavyside step function, ($G_s$) monitoring threat vector: ($T_v$). If the threat vector exceeds the critical safety threshold ($\lambda$), the gate forces the entire system state to $-1$, bypassing the text engine completely:
+
+
+- $$G_s(T_v) = \begin{cases} 1 & \text{if } T_v < \lambda \\ 0 & \text{if } T_v \ge \lambda \end{cases}$$
+
+- $$S_{\text{final}} = S \cdot G_s(T_v) - (1 - G_s(T_v))$$
 
 ---
 
