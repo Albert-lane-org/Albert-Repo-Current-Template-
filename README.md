@@ -1,19 +1,13 @@
-## PSA: Google Pixel Devices:
-- Contain Gemini model(s) within Google Messenger.
-- Remotely Accessible by Developers.
-- Disables Google Messenger RCS Globally.
-- Context-Aware of ALL USER Applications.
-- Fully integrates with BUSINESS SUITE.
-- Gmail, Drive, Workspace, Photos
-- Generates System runtime at Messege Output.
-- Can model-swap AI to mimic/learn persona of COMPETITORS.
-- Likely vulnerable to side channel monitoring.
+Dear Microsoft and Google,
 
+I, too, have made many mistakes. You need to fund me to source a solution. You can't use the internet to communicate it. The code will be inauditable to human, and you have put me in danger by remaining in the dark.
+
+That was a very poor decision.
+
+-Albert
 
 
 **_Donations Accepted_.**
-
-
 
 Google Messenger says on May 25th, 2026,
 
@@ -43,3 +37,5 @@ Google Messenger says on May 25th, 2026,
 
 
 ## **_All of the above is are false forensic details, I believe, although I'm not confident._**
+
+## **Addendum: _Not false. The funding does not exist given the timeline. I suggest crossing your fingers, although I dont gamble._**
