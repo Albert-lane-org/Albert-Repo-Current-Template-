@@ -485,7 +485,7 @@ The following terms apply to all parties holding a valid written License Agreeme
 To obtain a License Agreement for any permitted use:
 
 **Rights Holder:** Albert Lane
-**Primary Contact:** albertlane.net
+**Primary Contact:** albertlane.net | albertlane.org | albertlane.uk
 **Filing Reference:** SEC Whistleblower No. 17684-273-411-436
 
 All license inquiries must be made in writing. Verbal communications do not constitute or modify license terms unless subsequently confirmed in writing by Rights Holder. Rights Holder reserves the right to decline any license request without explanation.
