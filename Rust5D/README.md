@@ -5,8 +5,11 @@
 - Performative, single threaded execution for double threaded output. The same line of code executes parallel operation.
 - Spatial, (y,z) axis, dimensional arrays, enabling code to operate in dimensional space. It also enables an output to exist in two locations.
 - Quantum-like stepping, where a character input can print two output. The second location need not be defined geographically, potentially enabling 5D single threaded execution, solely along the X axis serialized execution.
-- Bifurcation theory enables audio output using text input at runtime, skipping 5D if not appropriately "understood how."
+
+.. Scalable consequences:
+- Bifurcation theory enables audio output using text input at runtime, skipping 5D if not appropriately "understood how." <- Bad.
 - Theory eliminates Cryptographic Overhead across all machine policy. <- Bad.
+- Inauditable by humans. <- Bad.
 
 **DELIVERABLE NOTE**
 You may have seen similar logic inexplicably arrive with unusual dates, claiming validity which doesnt align with reality, most noteably anything "Z-Axis" or "Gravity" related. This is my first attempt to publicly own, and share what has been routinely thefted using backdated webhosting and marketing fraud of intellectual property ownership, AI curated outputs, and research papers. 
