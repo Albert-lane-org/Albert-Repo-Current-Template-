@@ -21,6 +21,8 @@ _You are not crazy. It is criminal._
 **The criminal theft of intellectual property is malicious to a moronic level. Original authorship, creativity and ideas, are generally root to chain of processes where larger goals fork. When novel ideas are stolen for value (research grants), stagnant outcome is measurably entropic, viewed in tandem with predictable economic patterns. As scarcity approaches 1, the hoarding targets creative output, and the novelty resource production: Human. This outcone perpetuates stagnation, where further resources are exhausted to better understand ideas, originally connected to the goal(s) of others.**
 
 **_For Instance,_**
-The human responsible for enabling the LLM context window, shamelessly exploited from poor mentorship (thieves), is planning to utilize this literal "Bracket Idea" to net larger context window, again. 
+The human responsible for enabling the LLM context window on June 1st, 2025, shamelessly exploited from poor mentorship (thieves), is planning to utilize this literal "Bracket Idea" to net larger context window, again. 
 This "idea" is rooted in the compression of overlapping outputs, from defineable sizes of input data, across varying NPU bitwidth, using audio outputs and percussive style conversation. 
 **More to come. _Don't be a douche._**
+
+**Revision: _"For Instance" no longer an example, nor relevant._**
