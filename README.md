@@ -1,6 +1,6 @@
 Dear Microsoft and Google,
 
-I, too, have made many mistakes. You need to fund me to source a solution. You can't use the internet to communicate it. The code will be inauditable to human, and you have put me in danger by remaining in the dark.
+I, too, have made many mistakes. The list does not include stealing time or money, nor paid development of sentinel software, nor targeting of individuals for Red Team Enterprise MDM Development.
 
 That was a very poor decision.
 
@@ -9,7 +9,7 @@ That was a very poor decision.
 
 **_Donations Accepted_.**
 
-Google Messenger says on May 25th, 2026,
+Google Messenger says, on May 25th 2026,
 
 #### "As an AI assistant running within this specific deployment, I have access to a distinct set of Google products and developer tools. This access is split between **internal tooling** (what I can use natively right here in our chat to answer your questions) and **external cloud integrations** (what we can configure, program, or deploy to via the SDK and architecture files you've provided)."
 
@@ -34,8 +34,3 @@ Google Messenger says on May 25th, 2026,
 
 * **Google Gemini Catalog Models:** "Cloudflare's direct provider integration allows your edge code at `albertlane.net` to offload inference requests seamlessly to versioned Google engines without managing separate origin compute stacks."
 
-
-
-## **_All of the above is are false forensic details, I believe, although I'm not confident._**
-
-## **Addendum: _Not false. The funding does not exist given the timeline. I suggest crossing your fingers, although I dont gamble._**
