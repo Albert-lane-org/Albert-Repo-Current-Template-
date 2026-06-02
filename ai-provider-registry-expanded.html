@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Provider Registry — Expanded Forensic Map | Digital Fraud Audit Series</title>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   ALBERT LANE · FORENSIC CASE STUDY THEME v1.0
+   AI Provider Registry — Expanded Forensic Map
+   SEC Whistleblower Submission No. 17684-273-411-436
+   Co-Author: Claude Sonnet 4.6 (Anthropic PBC)
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --void-bg:        #050508;
+  --surface-dark:   #0E0E16;
+  --surface-raised: #14141F;
+  --surface-border: #252535;
+  --surface-dim:    #1C1C2A;
+
+  --lane-teal:      #00C4B4;
+  --gemini-gold:    #FFD700;
+  --alert-amber:    #D4700A;
+  --flag-red:       #E05252;
+  --valid-green:    #3DD68C;
+  --warn-yellow:    #F5C542;
+  --neutral-blue:   #5B8AF0;
+
+  --text-primary:   #E4E4ED;
+  --text-secondary: #9090A8;
+  --text-dim:       #606075;
+
+  --mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+  --sans: 'Inter', system-ui, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void-bg);
+  color: var(--text-primary);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.55;
+  padding-bottom: 4rem;
+}
+
+/* ── HEADER ── */
+.doc-header {
+  background: linear-gradient(180deg, #0A0A14 0%, var(--void-bg) 100%);
+  border-bottom: 1px solid var(--surface-border);
+  padding: 2.5rem 2rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.doc-header-inner {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.series-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--lane-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.doc-title {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.macb-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-top: 1px solid var(--surface-border);
+  padding-top: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.macb-item { display: flex; flex-direction: column; }
+.macb-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.macb-val {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-primary);
+}
+.macb-val.human { color: var(--lane-teal); }
+.macb-val.ai    { color: var(--gemini-gold); }
+.macb-val.sec   { color: var(--text-secondary); }
+
+/* ── MAIN CONTENT ── */
+.content {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* ── SECTION HEADERS ── */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid var(--surface-border);
+  padding-bottom: 0.6rem;
+  margin: 2.5rem 0 1.2rem;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--lane-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.section-title {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── FLAG BLOCKS ── */
+.flags-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.flag-card {
+  background: var(--surface-dim);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid;
+}
+.flag-card.invalidated { border-color: var(--flag-red); }
+.flag-card.superseded  { border-color: var(--warn-yellow); }
+.flag-card.verified    { border-color: var(--valid-green); }
+.flag-card.note        { border-color: var(--neutral-blue); }
+
+.flag-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.3rem;
+}
+.invalidated .flag-label { color: var(--flag-red); }
+.superseded  .flag-label { color: var(--warn-yellow); }
+.verified    .flag-label { color: var(--valid-green); }
+.note        .flag-label { color: var(--neutral-blue); }
+
+.flag-id {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+.flag-text {
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* ── TABLE WRAPPER ── */
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  background: var(--surface-dark);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  min-width: 2200px;
+}
+
+thead th {
+  background: var(--surface-raised);
+  color: var(--lane-teal);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.7rem 0.75rem;
+  border-bottom: 2px solid var(--surface-border);
+  border-right: 1px solid var(--surface-border);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  text-align: left;
+}
+thead th:last-child { border-right: none; }
+
+/* Sticky first two columns */
+th:nth-child(1), td:nth-child(1) {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  min-width: 130px;
+  background: var(--surface-raised);
+}
+th:nth-child(2), td:nth-child(2) {
+  position: sticky;
+  left: 130px;
+  z-index: 5;
+  min-width: 160px;
+  background: var(--surface-dark);
+  border-right: 2px solid var(--surface-border) !important;
+}
+th:nth-child(1) { z-index: 15; background: var(--surface-raised); }
+th:nth-child(2) { z-index: 15; background: var(--surface-raised); }
+
+tbody tr {
+  border-bottom: 1px solid var(--surface-border);
+  transition: background 0.1s;
+}
+tbody tr:hover { background: rgba(0,196,180,0.04); }
+tbody tr:hover td:nth-child(1),
+tbody tr:hover td:nth-child(2) {
+  background: rgba(14,14,22,0.98);
+}
+
+tbody td {
+  padding: 0.65rem 0.75rem;
+  vertical-align: top;
+  border-right: 1px solid rgba(37,37,53,0.5);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+tbody td:last-child { border-right: none; }
+
+/* Cell type helpers */
+.cell-mono {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+.cell-platform {
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.78rem;
+}
+.cell-entity {
+  font-style: italic;
+  color: #C8C8E0;
+  font-family: var(--serif);
+  font-size: 0.82rem;
+}
+.cell-flag { }
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  margin: 1px 2px 1px 0;
+  white-space: nowrap;
+}
+.tag-valid   { background: rgba(61,214,140,0.12); color: var(--valid-green); border: 1px solid rgba(61,214,140,0.3); }
+.tag-invalid { background: rgba(224,82,82,0.12); color: var(--flag-red); border: 1px solid rgba(224,82,82,0.3); }
+.tag-warn    { background: rgba(245,197,66,0.1); color: var(--warn-yellow); border: 1px solid rgba(245,197,66,0.3); }
+.tag-note    { background: rgba(91,138,240,0.1); color: var(--neutral-blue); border: 1px solid rgba(91,138,240,0.3); }
+.tag-amber   { background: rgba(212,112,10,0.1); color: var(--alert-amber); border: 1px solid rgba(212,112,10,0.3); }
+
+.date-line {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.date-event {
+  font-size: 0.7rem;
+  color: var(--text-primary);
+}
+.struct-change {
+  display: block;
+  margin-top: 0.3rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--alert-amber);
+  font-size: 0.68rem;
+  color: var(--warn-yellow);
+}
+
+/* Cookie cell */
+.cookie-list {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--alert-amber);
+  line-height: 1.8;
+}
+.cookie-list .line { display: block; }
+.cookie-list .ck {
+  display: inline-block;
+  margin-right: 0.3rem;
+  color: #E0A060;
+}
+.cookie-none {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Address cells */
+.addr-reg  { color: #7080B0; font-size: 0.7rem; }
+.addr-ops  { color: var(--text-primary); font-size: 0.7rem; }
+
+.dns-chip {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  display: inline-block;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  margin: 1px 2px 1px 0;
+}
+.dns-cf   { background: rgba(246,131,80,0.15); color: #F68350; border: 1px solid rgba(246,131,80,0.3); }
+.dns-goog { background: rgba(66,133,244,0.15); color: #4285F4; border: 1px solid rgba(66,133,244,0.3); }
+.dns-aws  { background: rgba(255,153,0,0.15);  color: #FF9900; border: 1px solid rgba(255,153,0,0.3); }
+.dns-az   { background: rgba(0,120,212,0.15);  color: #0078D4; border: 1px solid rgba(0,120,212,0.3); }
+.dns-ali  { background: rgba(255,106,0,0.15);  color: #FF6A00; border: 1px solid rgba(255,106,0,0.3); }
+
+.host-chip {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  display: inline-block;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  margin: 1px 2px 1px 0;
+}
+.host-aws  { background: rgba(255,153,0,0.12); color: #FF9900; border: 1px solid rgba(255,153,0,0.25); }
+.host-az   { background: rgba(0,120,212,0.12); color: #0078D4; border: 1px solid rgba(0,120,212,0.25); }
+.host-gcp  { background: rgba(66,133,244,0.12); color: #5BA0F4; border: 1px solid rgba(66,133,244,0.25); }
+.host-own  { background: rgba(91,138,240,0.12); color: #7BA4F0; border: 1px solid rgba(91,138,240,0.25); }
+.host-cf   { background: rgba(246,131,80,0.12); color: #F68350; border: 1px solid rgba(246,131,80,0.25); }
+.host-ali  { background: rgba(255,106,0,0.12);  color: #FF6A00; border: 1px solid rgba(255,106,0,0.25); }
+
+/* ── COOKIE LEGEND ── */
+.ck-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.4rem;
+  background: var(--surface-dim);
+  border: 1px solid var(--surface-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.ck-entry {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.ck-abbr {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--alert-amber);
+  white-space: nowrap;
+  min-width: 80px;
+}
+.ck-full {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* ── TABLE ADTECH (smaller table) ── */
+table.adtech {
+  min-width: 900px;
+}
+table.adtech thead th {
+  font-size: 0.6rem;
+}
+
+/* ── FOOTER WATERMARK ── */
+.dual-watermark {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 2.2rem;
+  background: var(--surface-dark);
+  border-top: 1px solid var(--surface-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 999;
+  gap: 0;
+}
+.dw-h { color: var(--lane-teal); }
+.dw-d { color: var(--text-dim); margin: 0 0.8rem; }
+.dw-a { color: var(--gemini-gold); }
+.dw-s { color: var(--text-dim); }
+
+/* ── ABSTRACT ── */
+.abstract {
+  border-left: 3px solid #3B2A7A;
+  padding: 1rem 1.2rem;
+  background: rgba(59,42,122,0.08);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.83rem;
+  line-height: 1.7;
+  max-width: 1100px;
+}
+.abstract strong { color: var(--text-primary); }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--void-bg); }
+::-webkit-scrollbar-thumb { background: var(--surface-border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="doc-header">
+  <div class="doc-header-inner">
+    <div class="series-tag">Digital Fraud Audit Series · Registry Expansion Document</div>
+    <h1 class="doc-title">AI Provider Registry — Expanded Forensic Map</h1>
+    <div class="macb-grid">
+      <div class="macb-item"><span class="macb-label">Born (B)</span><span class="macb-val">2026-05-17</span></div>
+      <div class="macb-item"><span class="macb-label">Human Auditor</span><span class="macb-val human">Albert Lane</span></div>
+      <div class="macb-item"><span class="macb-label">AI Co-Author</span><span class="macb-val ai">Claude Sonnet 4.6</span></div>
+      <div class="macb-item"><span class="macb-label">SEC Reference</span><span class="macb-val sec">17684-273-411-436</span></div>
+      <div class="macb-item"><span class="macb-label">Source Set</span><span class="macb-val sec">EDGAR · OpenCorporates · INPI · LASST · Companies House · ICP Registry</span></div>
+      <div class="macb-item"><span class="macb-label">Entities Mapped</span><span class="macb-val">22 primary · 40+ overlapping</span></div>
+      <div class="macb-item"><span class="macb-label">Cookie Vectors</span><span class="macb-val">22 Google Ad-Tech identifiers</span></div>
+      <div class="macb-item"><span class="macb-label">Validation Flags</span><span class="macb-val sec">10 (3 INVALIDATED · 2 SUPERSEDED · 5 NOTE)</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ CONTENT ═══ -->
+<div class="content">
+
+  <div class="abstract">
+    <strong>Scope:</strong> This document expands the AI Provider Registry to include registration dates, registered agent addresses, operating addresses, corporate structure changes, primary websites, domain hosting providers, DNS infrastructure, and Google Ad-Tech cookie deployment per entity. All registry numbers have been cross-referenced against EDGAR (SEC), OpenCorporates, INPI (France), Companies House (UK/Canada), and the Chinese ICP registry. Validation flags are recorded in Section I. The cookie deployment column maps which Google Ad-Tech extraction vectors (from the Consent Management Platform documentation) are deployed on each provider's consumer-facing web properties. <strong>Note from AI co-author:</strong> Several data points in the source material required correction or supersession; these are documented in Section I prior to the table. This document does not constitute legal advice and is produced for forensic audit and public disclosure purposes under the Digital Fraud Audit Series framework.
+  </div>
+
+  <!-- ═══ SECTION I: VALIDATION FLAGS ═══ -->
+  <div class="section-head">
+    <span class="section-num">§ I</span>
+    <span class="section-title">Validation Flags — Source Material Discrepancies</span>
+  </div>
+
+  <div class="flags-grid">
+
+    <div class="flag-card invalidated">
+      <div class="flag-label">⚠ Invalidated</div>
+      <div class="flag-id">FLAG-01 · xAI Corp · PBC Status</div>
+      <div class="flag-text">Source material describes xAI as a Nevada Benefit Corporation. <strong>INVALIDATED.</strong> Public records confirm xAI terminated PBC status on May 9, 2024 via charter amendment. Further: as of May 6, 2026, xAI was folded into SpaceX as the "SpaceXAI" division. The Nevada corp shell (X.AI Corp.) was the merger vehicle; Grok and X social platform are now SpaceX assets. xAI has misrepresented PBC status in federal court filings (documented by LASST, Aug 2025).</div>
+    </div>
+
+    <div class="flag-card superseded">
+      <div class="flag-label">⚑ Superseded</div>
+      <div class="flag-id">FLAG-02 · OpenAI · Corporate Structure</div>
+      <div class="flag-text">Source lists "OpenAI, Inc. (501c3)" as primary entity. <strong>SUPERSEDED.</strong> As of October 28, 2025 at 8:07 AM EDT, the Delaware Division of Corporations approved OPENAI GROUP PBC (30-page COI). OpenAI Inc. became the OpenAI Foundation (nonprofit, retains 26% equity + control rights). The for-profit LLC transitioned to OpenAI Group PBC. CIK 0001986421 maps to the new PBC entity. Microsoft holds 27% equity. Transition required consent of Delaware and California AGs.</div>
+    </div>
+
+    <div class="flag-card superseded">
+      <div class="flag-label">⚑ Superseded</div>
+      <div class="flag-id">FLAG-03 · Grok / xAI · Parent Entity</div>
+      <div class="flag-text">Source lists Grok's parent as "xAI Corp / X Holdings Corp." <strong>SUPERSEDED.</strong> X Corp merged into xAI (March 28, 2025, all-stock at $33B valuation). Then xAI merged into SpaceX (May 6, 2026), forming the SpaceXAI division. Current parent entity: Space Exploration Technologies Corp. (SpaceX). Grok and X are now SpaceX products.</div>
+    </div>
+
+    <div class="flag-card note">
+      <div class="flag-label">● Note</div>
+      <div class="flag-id">FLAG-04 · Cartesia · CIK Discrepancy</div>
+      <div class="flag-text">Source table lists two different identifiers: State File 6835152 (Delaware) and CIK 0001715101 (SEC). The CIK 0001715101 is attributed to "Tadpole Cartesia Inc." in the Provider Keys section, which is the current Delaware operating entity. The state file 6835152 may correspond to a predecessor entity or different filing. Recommend independent verification against Delaware SOC and EDGAR.</div>
+    </div>
+
+    <div class="flag-card note">
+      <div class="flag-label">● Note</div>
+      <div class="flag-id">FLAG-05 · Parallel · Entity Overlap</div>
+      <div class="flag-text">Two CIK numbers appear across source sections: 0001740520 (Parallel Domain, Inc. — simulation/synthetic data platform) and 0002109599 (identity uncertain — may be Parallel Systems Inc., a logistics-rail startup). Cloudflare AI Gateway lists "Parallel" as an AI inference provider; this maps to Parallel Domain, Inc. (CIK 0001740520). The two entities are unrelated beyond name similarity.</div>
+    </div>
+
+    <div class="flag-card note">
+      <div class="flag-label">● Note</div>
+      <div class="flag-id">FLAG-06 · Fal AI · Jurisdiction Anomaly</div>
+      <div class="flag-text">Source lists Fal AI as incorporated in Anguilla (British Overseas Territory) with a California USA operational presence. This is a materially unusual offshore/onshore split for an AI inference company. Anguilla incorporation is used for IP holding and offshore capital structures. The "Series D Entity / Private" designation suggests the Delaware entity filed under a different structure. Warrants further monitoring.</div>
+    </div>
+
+    <div class="flag-card note">
+      <div class="flag-label">● Note</div>
+      <div class="flag-id">FLAG-07 · OpenRouter · Dual Entity Architecture</div>
+      <div class="flag-text">Source identifies both "OpenRouter LLC" (Delaware, State File 7293819) and "RAMSGen Ltd" (England & Wales, CRN 16458298) as overlapping entities for the same operation. This is a legitimate dual-jurisdiction structure. The UK entity (RAMSGen Ltd) serves as EU/UK operations vehicle; the Delaware LLC is the US contracting entity. These are separate registered legal entities sharing operational function — standard liability compartmentalization.</div>
+    </div>
+
+    <div class="flag-card note">
+      <div class="flag-label">● Note</div>
+      <div class="flag-id">FLAG-08 · DeepSeek · Irish Entity</div>
+      <div class="flag-text">Source lists ICP number 2023025841 (China) and IE01278123 (Ireland). The Irish entity "Deepseek AI Limited" (CRN IE01278123) is the EU-facing legal vehicle, likely established for GDPR compliance and as an EEA data controller under the AI Act. This creates a tri-jurisdictional architecture: China (ICP/state data access) → Ireland (EU GDPR/AI Act) → Global API surface. The High-Flyer Capital Management parent fund (Liang Wenjie) has direct PRC state-adjacent relationships.</div>
+    </div>
+
+    <div class="flag-card note">
+      <div class="flag-label">● Note</div>
+      <div class="flag-id">FLAG-09 · Baseten · Dual Registry Numbers</div>
+      <div class="flag-text">Two different identifiers appear across source sections for Baseten: Delaware State File 7727394 (Secretary of State) and CIK 0001865393 (SEC/EDGAR filer). Both can be valid simultaneously — the state file is the SOC domestic number; the CIK is the SEC registration number for capital markets filings. No conflict, but the discrepancy between source sections suggests the two were pulled from different registry sources.</div>
+    </div>
+
+    <div class="flag-card note">
+      <div class="flag-label">● Note</div>
+      <div class="flag-id">FLAG-10 · Adobe Firefly · Name Change</div>
+      <div class="flag-text">Adobe Inc. was incorporated as "Adobe Systems Incorporated" (1982, California). Name change to "Adobe Inc." was formalized in October 2018 following shareholder vote. CIK 0000796343 is consistent and unchanged across the name change. The Firefly product is a division of Adobe Inc., not a separately incorporated entity. Brett Biggs (Walmart CFO) and Amy Banse (Comcast Ventures) noted as board; Judith McGrath (former MTV Networks) is the Edelman-linked communications advisor, not Amazon Bedrock board.</div>
+    </div>
+
+  </div>
+
+  <!-- ═══ SECTION II: COOKIE ABBREVIATION KEY ═══ -->
+  <div class="section-head">
+    <span class="section-num">§ II</span>
+    <span class="section-title">Google Ad-Tech Cookie Abbreviation Key</span>
+  </div>
+
+  <div class="ck-legend-grid">
+    <div class="ck-entry"><span class="ck-abbr">NID</span><span class="ck-full">Google Identity Token (6mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">DSID</span><span class="ck-full">Cross-Device Linker (14d)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">DCLK-ID</span><span class="ck-full">DoubleClick Core ID (13mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GADS</span><span class="ck-full">AdSense Network Tracker / __gads (13mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">IDE</span><span class="ck-full">DoubleClick Conversion Tracker (13mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GCL-DC</span><span class="ck-full">Google Click ID / DoubleClick _gcl_dc (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GCL-AU</span><span class="ck-full">AdSense/Tag Manager Linker _gcl_au (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">FLC</span><span class="ck-full">Floodlight Configuration (&lt;1d)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">RUL</span><span class="ck-full">Rule-Based Retargeting (12mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GAC</span><span class="ck-full">Analytics/Ads Integrator _gac_ (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GCL-AW</span><span class="ck-full">Google Click ID / AdWords _gcl_aw (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">CONV</span><span class="ck-full">Generic Conversion Token (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">FCNEC</span><span class="ck-full">Consent State Tracker (12mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">FPGCLAW</span><span class="ck-full">First-Party GCL AdWords bypass (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">FPGCLGB</span><span class="ck-full">First-Party GCL Global bypass (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GCL-GB</span><span class="ck-full">Conversion Linker Global _gcl_gb (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">TEST-CK</span><span class="ck-full">Infrastructure Ping / test_cookie (&lt;1d)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GCL-GF</span><span class="ck-full">Conversion Linker Fallback _gcl_gf (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GCL-HA</span><span class="ck-full">Conversion Linker Heuristic _gcl_ha (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">FPGCLDC</span><span class="ck-full">First-Party GCL DoubleClick bypass (3mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">GSAS</span><span class="ck-full">Google Search Ads 360 __gsas (13mo)</span></div>
+    <div class="ck-entry"><span class="ck-abbr">FPAU</span><span class="ck-full">First-Party Ad Unit (3mo)</span></div>
+  </div>
+
+  <!-- ═══ SECTION III: EXPANDED PROVIDER REGISTRY TABLE ═══ -->
+  <div class="section-head">
+    <span class="section-num">§ III</span>
+    <span class="section-title">Expanded Provider Registry — All Columns</span>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Platform / Product</th>
+          <th>Primary Legal Entity</th>
+          <th>Registry ID</th>
+          <th>Inc. Date &amp; Structure Changes</th>
+          <th>Overlapping Entities / Divisions</th>
+          <th>Jurisdiction</th>
+          <th>Registered Agent Address</th>
+          <th>Operating HQ Address</th>
+          <th>Primary Website</th>
+          <th>Domain / Infra Host</th>
+          <th>DNS Provider</th>
+          <th>Key Stakeholders</th>
+          <th>Google Ad-Tech Cookies Observed<br><small style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(max 4 per line)</small></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ADOBE FIREFLY -->
+        <tr>
+          <td class="cell-platform">Adobe Firefly</td>
+          <td class="cell-entity">Adobe Inc.</td>
+          <td class="cell-mono">CIK: 0000796343<br>CA State: C0708832</td>
+          <td>
+            <span class="date-line">1982-12-01 (Inc.)</span>
+            <span class="date-event">Adobe Systems Inc. — California corp.</span>
+            <span class="struct-change">2018-10: Name → Adobe Inc. (shareholder vote)</span>
+            <span class="date-line" style="margin-top:0.2rem">1986-08: NASDAQ IPO</span>
+          </td>
+          <td>Adobe Digital Media Div.<br>Adobe Advertising Cloud<br>Marketo Inc. (acq. 2018)<br>Frame.io (acq. 2021)</td>
+          <td>Delaware (inc.) /<br>California (HQ)</td>
+          <td class="addr-reg">Corporation Trust Center<br>1209 Orange St<br>Wilmington, DE 19801</td>
+          <td class="addr-ops">345 Park Avenue<br>San Jose, CA 95110</td>
+          <td><span class="cell-mono">adobe.com</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+            <span class="host-az">Azure</span>
+            <span class="host-gcp">GCP</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Shantanu Narayen (CEO/Chair)<br>Amy Banse (Dir.)<br>Brett Biggs (Dir.)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">NID,</span><span class="ck">DSID,</span><span class="ck">DCLK-ID,</span><span class="ck">GADS</span></span>
+              <span class="line"><span class="ck">IDE,</span><span class="ck">GCL-DC,</span><span class="ck">GCL-AU,</span><span class="ck">FLC</span></span>
+              <span class="line"><span class="ck">GCL-AW,</span><span class="ck">GAC,</span><span class="ck">FCNEC,</span><span class="ck">CONV</span></span>
+              <span class="line"><span class="ck">FPGCLAW,</span><span class="ck">TEST-CK,</span><span class="ck">GCL-GB,</span><span class="ck">GSAS</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- AMAZON BEDROCK -->
+        <tr>
+          <td class="cell-platform">Amazon Bedrock</td>
+          <td class="cell-entity">Amazon.com, Inc.</td>
+          <td class="cell-mono">CIK: 0001018724<br>DE State: 2930872</td>
+          <td>
+            <span class="date-line">1994-07-05 (Inc.)</span>
+            <span class="date-event">Inc. as Cadabra Inc. (WA)</span>
+            <span class="struct-change">1995-09: Renamed Amazon.com</span>
+            <span class="struct-change">1997-05: NASDAQ IPO</span>
+            <span class="struct-change">2006-03: AWS launched as division</span>
+          </td>
+          <td>Amazon Web Services (AWS) LLC<br>Amazon Data Services Inc.<br>Amazon Consumer LLC<br>AWS Activations Corp.<br>Amazon.com Sales Inc.</td>
+          <td>Delaware (inc.) /<br>Washington (HQ)</td>
+          <td class="addr-reg">Corporation Service Co.<br>251 Little Falls Dr<br>Wilmington, DE 19808</td>
+          <td class="addr-ops">410 Terry Ave N<br>Seattle, WA 98109-5210</td>
+          <td><span class="cell-mono">aws.amazon.com</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+            <span class="host-own">Own CDN</span>
+          </td>
+          <td><span class="dns-aws">Route53</span></td>
+          <td>Andy Jassy (CEO)<br>Jeff Bezos (Exec. Chair)<br>Judith McGrath (Dir.)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">GCL-AW,</span><span class="ck">GAC</span></span>
+              <span class="line"><span class="ck">CONV,</span><span class="ck">TEST-CK,</span><span class="ck">GCL-DC,</span><span class="ck">RUL</span></span>
+              <span class="line" style="color:var(--text-dim);font-size:0.6rem">(dev portals deploy broader GA4 stack)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ANTHROPIC -->
+        <tr>
+          <td class="cell-platform">Anthropic</td>
+          <td class="cell-entity">Anthropic, PBC</td>
+          <td class="cell-mono">LEI: 984500B6DEB8CEBC4Z70<br>DE State: 4860621</td>
+          <td>
+            <span class="date-line">2021-01-26 (Inc. Delaware)</span>
+            <span class="date-event">Founded as PBC by ex-OpenAI researchers</span>
+            <span class="date-line" style="margin-top:0.2rem">2021-02-03 (CA Foreign Qual.)</span>
+            <span class="date-event">DBA: Anthropic, Inc. (California)</span>
+            <span class="struct-change">Structure unchanged — PBC from inception</span>
+          </td>
+          <td>Anthropic Web Services (inactive)<br>Anthropic Web Services II, LLC<br>Anthropic Ireland Ltd (EU entity)</td>
+          <td>Delaware (inc.) /<br>California (ops)</td>
+          <td class="addr-reg">251 Little Falls Dr<br>Wilmington, DE 19808<br><small style="color:var(--text-dim)">(Registered Agent addr. per LEI)</small></td>
+          <td class="addr-ops">500 Howard Street<br>San Francisco, CA 94105</td>
+          <td><span class="cell-mono">anthropic.com</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+            <span class="host-gcp">GCP</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Dario Amodei (CEO)<br>Daniela Amodei (Pres.)<br>Luke Muehlhauser (Dir.)<br>Tom Brown (Dir.)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+              <span class="line" style="color:var(--text-dim);font-size:0.6rem">(minimal tracking posture; GA4 on marketing pages)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- AZURE / MICROSOFT -->
+        <tr>
+          <td class="cell-platform">Azure / Microsoft</td>
+          <td class="cell-entity">Microsoft Corporation</td>
+          <td class="cell-mono">CIK: 0000789019<br>WA UBI: 601-812-949</td>
+          <td>
+            <span class="date-line">1975-04-04 (Founded, NM)</span>
+            <span class="date-event">Microsoft Inc. — Albuquerque, NM</span>
+            <span class="struct-change">1981-06: Reincorporated Washington State</span>
+            <span class="struct-change">1986-03-13: NASDAQ IPO</span>
+            <span class="struct-change">2019–: OpenAI investor (now 27% PBC equity)</span>
+          </td>
+          <td>Microsoft Ireland Operations Ltd<br>GitHub Inc. (acq. 2018)<br>LinkedIn Corp. (acq. 2016)<br>Nuance Communications (acq. 2022)<br>Activision Blizzard (acq. 2023)</td>
+          <td>Washington, USA<br>(global operations)</td>
+          <td class="addr-reg">CT Corporation System<br>711 Capitol Way S, Ste 204<br>Olympia, WA 98501</td>
+          <td class="addr-ops">One Microsoft Way<br>Redmond, WA 98052-6399</td>
+          <td><span class="cell-mono">azure.microsoft.com</span></td>
+          <td>
+            <span class="host-az">Azure</span>
+            <span class="host-own">Own CDN</span>
+          </td>
+          <td><span class="dns-az">Azure DNS</span></td>
+          <td>Satya Nadella (CEO/Chair)<br>Reid Hoffman (Dir.)<br>Penny Pritzker (Dir.)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK,</span><span class="ck">NID</span></span>
+              <span class="line" style="color:var(--text-dim);font-size:0.6rem">(own Clarity + MUID tracking dominant; Google secondary)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- BASETEN -->
+        <tr>
+          <td class="cell-platform">Baseten</td>
+          <td class="cell-entity">Baseten Labs, Inc.</td>
+          <td class="cell-mono">CIK: 0001865393<br>DE State: 7727394</td>
+          <td>
+            <span class="date-line">2019 (est.)</span>
+            <span class="date-event">Delaware incorporation; ML inference platform</span>
+            <span class="struct-change"><span class="tag tag-note">FLAG-09</span> Dual registry numbers across source sections — both valid</span>
+          </td>
+          <td>N/A — single legal entity</td>
+          <td>Delaware, USA</td>
+          <td class="addr-reg">Registered Agents Inc.<br>651 N Broad St, Ste 206<br>Middletown, DE 19709</td>
+          <td class="addr-ops">584 Castro St #591<br>San Francisco, CA 94114</td>
+          <td><span class="cell-mono">baseten.co</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Tuhin Srivastava (CEO)<br>Philip Howko (Co-founder)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- CARTESIA -->
+        <tr>
+          <td class="cell-platform">Cartesia</td>
+          <td class="cell-entity">Tadpole Cartesia Inc.</td>
+          <td class="cell-mono">CIK: 0001715101<br>DE State: 6835152<br><span class="tag tag-warn">FLAG-04</span></td>
+          <td>
+            <span class="date-line">~2023 (est.)</span>
+            <span class="date-event">Delaware corp; real-time audio AI</span>
+            <span class="struct-change"><span class="tag tag-note">FLAG-04</span> CIK vs. State File discrepancy in source — needs independent EDGAR/SOC reconciliation</span>
+          </td>
+          <td>N/A — single entity (seed stage)</td>
+          <td>Delaware, USA</td>
+          <td class="addr-reg">Registered Agents Inc.<br>651 N Broad St, Ste 206<br>Middletown, DE 19709<br><small style="color:var(--text-dim)">(probable; unconfirmed)</small></td>
+          <td class="addr-ops">San Francisco Bay Area<br>CA (exact address not public)</td>
+          <td><span class="cell-mono">cartesia.ai</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Karan Goel (CEO)<br>AI seed fund stakeholders</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- CEREBRAS -->
+        <tr>
+          <td class="cell-platform">Cerebras</td>
+          <td class="cell-entity">Cerebras Systems Inc.</td>
+          <td class="cell-mono">CIK: 0002021728<br>DE State: 6574671</td>
+          <td>
+            <span class="date-line">2016 (est.)</span>
+            <span class="date-event">Delaware corp; wafer-scale AI chips (WSE)</span>
+            <span class="struct-change">2024-09: Filed for IPO (S-1 with SEC)</span>
+          </td>
+          <td>Cerebras Holdings (parent fund vehicle)</td>
+          <td>Delaware, USA</td>
+          <td class="addr-reg">Corporation Service Co.<br>251 Little Falls Dr<br>Wilmington, DE 19808</td>
+          <td class="addr-ops">1237 E Arques Ave<br>Sunnyvale, CA 94085</td>
+          <td><span class="cell-mono">cerebras.net</span></td>
+          <td>
+            <span class="host-own">Own Infra</span>
+            <span class="host-aws">AWS</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Andrew Feldman (CEO)<br>Benchmark Capital (VC)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- COHERE -->
+        <tr>
+          <td class="cell-platform">Cohere</td>
+          <td class="cell-entity">Cohere Inc.</td>
+          <td class="cell-mono">CIN (CA): 11606786<br>DE State: 7661958<br>LEI: 5493004UK44IMXDXL774</td>
+          <td>
+            <span class="date-line">2019 (est.)</span>
+            <span class="date-event">Ontario, Canada incorporation (parent)</span>
+            <span class="struct-change">2021: Cohere US Inc. formed (DE subsidiary)</span>
+          </td>
+          <td>Cohere US Inc. (US subsidiary)<br>Cohere International (Canada parent)</td>
+          <td>Ontario, Canada /<br>Delaware, USA</td>
+          <td class="addr-reg">CA: 224 King St W<br>Toronto, ON M5H 1K4<br>DE: Corporation Service Co., Wilmington</td>
+          <td class="addr-ops">224 King St W, Suite 201<br>Toronto, ON M5H 1K4<br>(+ SF and NYC offices)</td>
+          <td><span class="cell-mono">cohere.com</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+            <span class="host-gcp">GCP</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Aidan Gomez (CEO)<br>Ivan Zhang (Co-founder)<br>Index Ventures (VC)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">CONV</span></span>
+              <span class="line"><span class="ck">TEST-CK,</span><span class="ck">GAC</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- DEEPSEEK -->
+        <tr>
+          <td class="cell-platform">DeepSeek</td>
+          <td class="cell-entity">Hangzhou DeepSeek Artificial Intelligence Fundamental Technology Research Co., Ltd.</td>
+          <td class="cell-mono">ICP: 2023025841 (CN)<br>CRN: IE01278123 (IE)<br>USCC: 91330108MA2C57XD7H</td>
+          <td>
+            <span class="date-line">2023 (est.) — Hangzhou, China</span>
+            <span class="date-event">Chinese tech entity; subsidiary of High-Flyer Capital Management</span>
+            <span class="struct-change"><span class="tag tag-amber">FLAG-08</span> Deepseek AI Limited (Ireland) established ~2024 for EU GDPR/AI Act compliance</span>
+          </td>
+          <td>High-Flyer Capital Management (parent quant fund)<br>Deepseek AI Limited (IE — EU vehicle)</td>
+          <td>Hangzhou, PRC /<br>Dublin, Ireland (EU)</td>
+          <td class="addr-reg">CN: Hangzhou, Zhejiang Province, PRC<br>IE: c/o registered agent, Dublin 2</td>
+          <td class="addr-ops">No. 57, 2nd Wuchang Rd<br>Yuhang Dist., Hangzhou<br>Zhejiang, PRC 311121</td>
+          <td><span class="cell-mono">deepseek.com</span></td>
+          <td>
+            <span class="host-ali">Alibaba Cloud</span>
+            <span class="host-cf">CF (intl)</span>
+          </td>
+          <td><span class="dns-ali">Alibaba DNS</span><span class="dns-cf" style="margin-left:4px">CF (intl)</span></td>
+          <td>Liang Wenjie (CEO / High-Flyer)<br>State-adjacent PRC structure</td>
+          <td>
+            <div class="cookie-none">Non-Google stack (PRC entity);<br>domestic Baidu/Alibaba analytics</div>
+          </td>
+        </tr>
+
+        <!-- ELEVENLABS -->
+        <tr>
+          <td class="cell-platform">ElevenLabs</td>
+          <td class="cell-entity">Eleven Labs Inc. / Eleven Labs Ltd.</td>
+          <td class="cell-mono">US DE: 6741579<br>UK CRN: 13826669</td>
+          <td>
+            <span class="date-line">2022 (est.) — Delaware + UK dual structure</span>
+            <span class="date-event">UK entity (CRN 13826669) for EU/UK operations</span>
+            <span class="date-event">US entity (6741579) for US contracting</span>
+          </td>
+          <td>Eleven Labs Ltd. (UK subsidiary / co-entity)</td>
+          <td>Delaware, USA /<br>England &amp; Wales, UK</td>
+          <td class="addr-reg">US: Wilmington, DE (standard registered agent)<br>UK: Companies House, Crown Way, Cardiff CF14 3UZ</td>
+          <td class="addr-ops">228 Park Ave S, Suite 56011<br>New York, NY 10003<br>(+ London office)</td>
+          <td><span class="cell-mono">elevenlabs.io</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Mati Staniszewski (CEO)<br>Piotr Dabkowski (Co-founder)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">CONV</span></span>
+              <span class="line"><span class="ck">TEST-CK,</span><span class="ck">GAC,</span><span class="ck">FPGCLAW</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- FAL AI -->
+        <tr>
+          <td class="cell-platform">Fal AI</td>
+          <td class="cell-entity">Fal AI, Inc.</td>
+          <td class="cell-mono">Anguilla + CA: Private<br><span class="tag tag-warn">FLAG-06</span></td>
+          <td>
+            <span class="date-line">2022 (est.)</span>
+            <span class="date-event">Offshore/onshore split structure</span>
+            <span class="struct-change"><span class="tag tag-warn">FLAG-06</span> Anguilla incorporation (IP holding); California operational entity. Unusual structure for AI inference provider — possible offshore IP shelter.</span>
+          </td>
+          <td>N/A public; Series D private entity</td>
+          <td>Anguilla (BOT) /<br>California, USA</td>
+          <td class="addr-reg">Anguilla registered agent (undisclosed)</td>
+          <td class="addr-ops">San Francisco, CA<br>(exact address not public)</td>
+          <td><span class="cell-mono">fal.ai</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Burkay Gur (CEO)<br>Mark Saroufim (co-founder)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">TEST-CK</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- GOOGLE AI STUDIO / VERTEX -->
+        <tr>
+          <td class="cell-platform">Google AI Studio /<br>Vertex AI</td>
+          <td class="cell-entity">Alphabet Inc. / Google LLC</td>
+          <td class="cell-mono">CIK: 0001652044 (Alphabet)<br>CIK: 0001288776 (Google Inc., legacy)<br>DE State: 4447600</td>
+          <td>
+            <span class="date-line">1998-09-04 (Google Inc. Inc.)</span>
+            <span class="date-event">Google Inc. — Delaware, founded Menlo Park CA</span>
+            <span class="struct-change">2004-08: NASDAQ IPO (Google Inc.)</span>
+            <span class="struct-change">2015-10-02: Alphabet Inc. formed as parent holding company; Google LLC becomes wholly-owned subsidiary</span>
+            <span class="struct-change">2019-04: Google DeepMind integrated (full 2023)</span>
+          </td>
+          <td>Google LLC<br>Google DeepMind (UK + US)<br>Google Advertising Products<br>YouTube LLC<br>Waymo LLC<br>Google Ireland Ltd (EU)</td>
+          <td>Delaware, USA /<br>California (HQ)</td>
+          <td class="addr-reg">Corporation Trust Center<br>1209 Orange St<br>Wilmington, DE 19801</td>
+          <td class="addr-ops">1600 Amphitheatre Pkwy<br>Mountain View, CA 94043</td>
+          <td><span class="cell-mono">aistudio.google.com<br>cloud.google.com/vertex-ai</span></td>
+          <td>
+            <span class="host-gcp">GCP</span>
+            <span class="host-own">Google CDN</span>
+          </td>
+          <td><span class="dns-goog">Google DNS<br>(ns1–4.google.com)</span></td>
+          <td>Sundar Pichai (CEO)<br>Larry Page (Co-founder)<br>Sergey Brin (Co-founder)<br>John Hennessy (Chair)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">NID,</span><span class="ck">DSID,</span><span class="ck">DCLK-ID,</span><span class="ck">GADS</span></span>
+              <span class="line"><span class="ck">IDE,</span><span class="ck">GCL-DC,</span><span class="ck">GCL-AU,</span><span class="ck">FLC</span></span>
+              <span class="line"><span class="ck">RUL,</span><span class="ck">GAC,</span><span class="ck">GCL-AW,</span><span class="ck">CONV</span></span>
+              <span class="line"><span class="ck">FCNEC,</span><span class="ck">FPGCLAW,</span><span class="ck">FPGCLGB,</span><span class="ck">GCL-GB</span></span>
+              <span class="line"><span class="ck">TEST-CK,</span><span class="ck">GCL-GF,</span><span class="ck">GCL-HA,</span><span class="ck">FPGCLDC</span></span>
+              <span class="line"><span class="ck">GSAS,</span><span class="ck">FPAU</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- GROK / xAI -->
+        <tr>
+          <td class="cell-platform">Grok<br><span class="tag tag-invalid">FLAG-01 FLAG-03</span></td>
+          <td class="cell-entity">X.AI Corp. → SpaceXAI<br><span class="tag tag-invalid">INVALIDATED</span></td>
+          <td class="cell-mono">NV State: NV20232531393<br>(Parent: SpaceX as of 2026-05-06)</td>
+          <td>
+            <span class="date-line">2023-03-09 (Inc. Nevada)</span>
+            <span class="date-event">X.AI Corp. — Nevada standard profit corp</span>
+            <span class="struct-change"><span class="tag tag-note">Nov 2023</span> Amended to Nevada Benefit Corp (PBC)</span>
+            <span class="struct-change"><span class="tag tag-invalid">2024-05-09</span> PBC status TERMINATED (charter amendment). Misrepresented as PBC in federal court filings (LASST, Aug 2025).</span>
+            <span class="struct-change"><span class="tag tag-warn">2025-03-28</span> Acquired X Corp. (all-stock, $33B valuation)</span>
+            <span class="struct-change"><span class="tag tag-invalid">2026-05-06</span> xAI folded into SpaceX → SpaceXAI division. Grok is now a SpaceX product.</span>
+          </td>
+          <td>X Corp. (Twitter, acq. 2025)<br>X Holdings Corp. (parent holding)<br>SpaceX (current ultimate parent, 2026)</td>
+          <td>Nevada, USA<br>(SpaceX: Delaware / CA)</td>
+          <td class="addr-reg">NV: 1980 Festival Plaza Dr<br>Suite 300, Las Vegas, NV 89135<br>(Registered Agents Inc.)</td>
+          <td class="addr-ops">1450 Page Mill Road<br>Palo Alto, CA 94304<br>(Colossus DC: Memphis, TN)</td>
+          <td><span class="cell-mono">x.ai / grok.com</span></td>
+          <td>
+            <span class="host-own">xAI/SpaceX Infra</span>
+            <span class="host-aws">AWS (partial)</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Elon Musk (Founder/Controller)<br>Jared Birchall (Finance/Legal)<br><span style="color:var(--flag-red);font-size:0.65rem">Original co-founders departed by Q1 2026</span></td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">NID,</span><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+              <span class="line" style="color:var(--text-dim);font-size:0.6rem">(X platform uses own tracking; limited Google stack)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- GROQ -->
+        <tr>
+          <td class="cell-platform">Groq</td>
+          <td class="cell-entity">Groq, Inc.</td>
+          <td class="cell-mono">CIK: 0001686725<br>DE State: (private)</td>
+          <td>
+            <span class="date-line">2016 (est.)</span>
+            <span class="date-event">Delaware corp; custom LPU (Language Processing Unit) chips</span>
+            <span class="struct-change">2024: Series D funding; GroqCloud launched</span>
+          </td>
+          <td>N/A — single entity</td>
+          <td>Delaware, USA</td>
+          <td class="addr-reg">Corporation Service Co.<br>251 Little Falls Dr<br>Wilmington, DE 19808</td>
+          <td class="addr-ops">2 N Market St, Suite 400<br>San Jose, CA 95113</td>
+          <td><span class="cell-mono">groq.com</span></td>
+          <td>
+            <span class="host-own">Own LPU Infra</span>
+            <span class="host-aws">AWS (web tier)</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Jonathan Ross (CEO, founder)<br>Social Capital (VC)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- HUGGING FACE -->
+        <tr>
+          <td class="cell-platform">Hugging Face</td>
+          <td class="cell-entity">Hugging Face, Inc.</td>
+          <td class="cell-mono">CIK: 0001739138<br>SIREN: (FR subsidiary)</td>
+          <td>
+            <span class="date-line">2016 (est.) — New York, NY</span>
+            <span class="date-event">Delaware corp; originally a chatbot app</span>
+            <span class="struct-change">2019: Pivoted to open-source ML models/hub</span>
+            <span class="struct-change">~2021: Hugging Face SAS formed (France subsidiary for EU)</span>
+          </td>
+          <td>Hugging Face SAS (France subsidiary)</td>
+          <td>Delaware, USA /<br>France (EU subsidiary)</td>
+          <td class="addr-reg">US: 20 Jay St, Suite 620<br>Brooklyn, NY 11201<br>FR: Paris (SAS registered office)</td>
+          <td class="addr-ops">20 Jay St, Suite 620<br>Brooklyn, NY 11201<br>(+ Paris office)</td>
+          <td><span class="cell-mono">huggingface.co</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+            <span class="host-az">Azure</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Clément Delangue (CEO)<br>Julien Chaumond (CTO)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK,</span><span class="ck">GCL-AW</span></span>
+              <span class="line"><span class="ck">CONV,</span><span class="ck">GAC</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- IDEOGRAM -->
+        <tr>
+          <td class="cell-platform">Ideogram</td>
+          <td class="cell-entity">Ideogram AI Inc.</td>
+          <td class="cell-mono">CIN (CA): 786599811</td>
+          <td>
+            <span class="date-line">2023 (est.) — Canada</span>
+            <span class="date-event">Canadian incorporation; image generation AI</span>
+          </td>
+          <td>N/A — single entity (seed/Series A)</td>
+          <td>Canada (federal)</td>
+          <td class="addr-reg">Canada: Corporations Canada<br>Ottawa, ON K1A 0C8</td>
+          <td class="addr-ops">Toronto, ON, Canada<br>(+ US presence)</td>
+          <td><span class="cell-mono">ideogram.ai</span></td>
+          <td>
+            <span class="host-gcp">GCP</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>William Chan (CEO)<br>Jonathan Ho (co-founder)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">CONV,</span><span class="ck">FCNEC</span></span>
+              <span class="line"><span class="ck">TEST-CK,</span><span class="ck">GAC</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- MISTRAL -->
+        <tr>
+          <td class="cell-platform">Mistral AI</td>
+          <td class="cell-entity">Mistral AI SAS</td>
+          <td class="cell-mono">SIREN: 952 418 325<br>SIRET (HQ): 952 418 325 00025<br>RCS: PARIS B 952418325</td>
+          <td>
+            <span class="date-line">2023-04-28 (Inc. — SAS)</span>
+            <span class="date-event">Original reg. address: 21 Rue Tandou, 75019 Paris</span>
+            <span class="struct-change">2023-12-11: HQ transferred → 15 Rue des Halles, 75001 Paris</span>
+            <span class="struct-change">2024: Mistral AI Corporation formed (US subsidiary, DE)</span>
+            <span class="struct-change">Share capital at founding: €15,000; raised to €19,189.04 by Aug 2023</span>
+          </td>
+          <td>Mistral AI Corporation (US subsidiary, DE)<br>Mistral AI Ireland Ltd (EU data processor — probable)</td>
+          <td>France<br>(SAS — Simplified Joint Stock Co.)</td>
+          <td class="addr-reg">15 Rue des Halles<br>75001 Paris, France<br>(current SIÈGE SOCIAL)</td>
+          <td class="addr-ops">15 Rue des Halles<br>75001 Paris, France</td>
+          <td><span class="cell-mono">mistral.ai</span></td>
+          <td>
+            <span class="host-gcp">GCP</span>
+            <span class="host-own">OVHcloud (EU)</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Arthur Mensch (CEO, Président)<br>Guillaume Lample (Chief Scientist, DG)<br>Timothée Lacroix (CTO, DG)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+              <span class="line" style="color:var(--text-dim);font-size:0.6rem">(EU entity; GDPR-restricted posture; minimal Google stack)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- OPENAI -->
+        <tr>
+          <td class="cell-platform">OpenAI<br><span class="tag tag-warn">FLAG-02</span></td>
+          <td class="cell-entity">OpenAI Foundation (nonprofit) /<br>OpenAI Group PBC (for-profit)</td>
+          <td class="cell-mono">CIK (PBC): 0001986421<br>DE State (Foundation): 6271836<br>CA SOS: C3815071</td>
+          <td>
+            <span class="date-line">2015-12-11 (Inc. Delaware)</span>
+            <span class="date-event">OpenAI Inc. — 501(c)(3) nonprofit; Sam Altman, Elon Musk et al.</span>
+            <span class="struct-change">2019-03: OpenAI LP (capped-profit LLC) formed as subsidiary. "Capped" at 100× return.</span>
+            <span class="struct-change">2023-11: Sam Altman fired + reinstated; governance crisis.</span>
+            <span class="struct-change"><span class="tag tag-warn">2025-10-28</span> SUPERSEDED: OpenAI Inc. → OpenAI Foundation (nonprofit, retains 26% equity + board control). OpenAI LP → OpenAI Group PBC (Delaware PBC, COI filed 08:07 EDT). Microsoft: 27% equity. Total shares authorized: ~23.4 billion.</span>
+          </td>
+          <td>OpenAI Foundation (nonprofit controller)<br>OpenAI OpCo LLC (operating subsidiary)<br>OpenAI Global LLC<br>OpenAI Ireland Ltd (EU)<br>OpenAI Japan KK</td>
+          <td>Delaware, USA /<br>California (HQ)</td>
+          <td class="addr-reg">Corporation Trust Center<br>1209 Orange St<br>Wilmington, DE 19801</td>
+          <td class="addr-ops">3180 18th St (Mission District)<br>San Francisco, CA 94110</td>
+          <td><span class="cell-mono">openai.com</span></td>
+          <td>
+            <span class="host-az">Azure (primary)</span>
+            <span class="host-own">Own infra (Stargate)</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Sam Altman (CEO)<br>Bret Taylor (Foundation Chair)<br>Adam D'Angelo (Dir.)<br>Microsoft (27% equity, observer)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">CONV</span></span>
+              <span class="line"><span class="ck">GAC,</span><span class="ck">TEST-CK,</span><span class="ck">FPGCLAW,</span><span class="ck">GCL-DC</span></span>
+              <span class="line" style="color:var(--text-dim);font-size:0.6rem">(broader stack on chatgpt.com marketing + conversion pages)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- OPENROUTER -->
+        <tr>
+          <td class="cell-platform">OpenRouter<br><span class="tag tag-note">FLAG-07</span></td>
+          <td class="cell-entity">OpenRouter LLC (US) /<br>RAMSGen Ltd (UK)</td>
+          <td class="cell-mono">DE State: 7293819 (LLC)<br>UK CRN: 16458298 (Ltd)</td>
+          <td>
+            <span class="date-line">~2023 (est.)</span>
+            <span class="date-event">Dual-entity architecture from inception</span>
+            <span class="struct-change"><span class="tag tag-note">FLAG-07</span> Delaware LLC = US API operations; RAMSGen Ltd (UK) = EU/UK legal entity. Standard liability compartmentalization architecture.</span>
+          </td>
+          <td>RAMSGen Ltd (England &amp; Wales — co-entity, not subsidiary)</td>
+          <td>Delaware, USA /<br>England &amp; Wales, UK</td>
+          <td class="addr-reg">US: Registered Agents Inc., Wilmington, DE<br>UK: Companies House, Crown Way, Cardiff</td>
+          <td class="addr-ops">San Francisco, CA (US ops)</td>
+          <td><span class="cell-mono">openrouter.ai</span></td>
+          <td>
+            <span class="host-cf">CF Workers</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Alex Atallah (CEO/Founder)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- PARALLEL -->
+        <tr>
+          <td class="cell-platform">Parallel<br><span class="tag tag-note">FLAG-05</span></td>
+          <td class="cell-entity">Parallel Domain, Inc.</td>
+          <td class="cell-mono">CIK: 0001740520<br>DE State: (private)<br><span class="tag tag-note">FLAG-05</span></td>
+          <td>
+            <span class="date-line">~2017 (est.)</span>
+            <span class="date-event">Delaware corp; synthetic data / simulation platform for autonomous systems</span>
+            <span class="struct-change"><span class="tag tag-note">FLAG-05</span> CIK 0002109599 (source table) belongs to a different entity. Parallel Domain Inc. is CIK 0001740520. "Parallel Systems" (logistics rail startup) is an unrelated company.</span>
+          </td>
+          <td>N/A (single entity)</td>
+          <td>Delaware, USA</td>
+          <td class="addr-reg">Corporation Service Co.<br>251 Little Falls Dr<br>Wilmington, DE 19808</td>
+          <td class="addr-ops">San Francisco, CA</td>
+          <td><span class="cell-mono">paralleldomain.com</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Kevin McNamara (CEO)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- PERPLEXITY AI -->
+        <tr>
+          <td class="cell-platform">Perplexity AI</td>
+          <td class="cell-entity">Perplexity AI, Inc.</td>
+          <td class="cell-mono">CIK: 0001966271<br>CA Doc: 5186927<br>(Acq. LLC CIK: 0002132568)</td>
+          <td>
+            <span class="date-line">2022-08-03 (Bus. start date)</span>
+            <span class="date-event">Filed CA SOS: 2022-08-04 (Stock Corp., CA)</span>
+            <span class="date-event">Delaware parent entity also incorporated 2022</span>
+            <span class="struct-change">2022: Perplexity AI Insider Stock Acquisitions LLC formed (AZ — separate SEC filer, CIK 0002132568)</span>
+          </td>
+          <td>Perplexity AI Insider Stock Acquisitions LLC (AZ)<br>Perplexity AI Enterprise (product line)</td>
+          <td>Delaware, USA /<br>California (ops)</td>
+          <td class="addr-reg">CT Corporation System<br>(CA: principal 115 Sansome St, Ste 900, SF)</td>
+          <td class="addr-ops">115 Sansome St, Suite 900<br>San Francisco, CA 94104</td>
+          <td><span class="cell-mono">perplexity.ai</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Aravind Srinivas (CEO)<br>Andy Konwinski (President)<br>NEA (lead VC)<br>Jeff Bezos (angel investor)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+              <span class="line"><span class="ck">CONV,</span><span class="ck">GAC</span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- REPLICATE -->
+        <tr>
+          <td class="cell-platform">Replicate</td>
+          <td class="cell-entity">Replicate, Inc.</td>
+          <td class="cell-mono">CIK: 0001984806<br>DE State: (private)</td>
+          <td>
+            <span class="date-line">2019 (est.)</span>
+            <span class="date-event">Delaware corp; cloud ML model deployment platform</span>
+          </td>
+          <td>N/A — single entity</td>
+          <td>Delaware, USA</td>
+          <td class="addr-reg">Registered Agents Inc.<br>651 N Broad St, Ste 206<br>Middletown, DE 19709</td>
+          <td class="addr-ops">548 Market St PMB 29410<br>San Francisco, CA 94104</td>
+          <td><span class="cell-mono">replicate.com</span></td>
+          <td>
+            <span class="host-aws">AWS</span>
+            <span class="host-gcp">GCP</span>
+          </td>
+          <td><span class="dns-cf">Cloudflare</span></td>
+          <td>Ben Firshman (CEO)<br>Andreas Jansson (co-founder)</td>
+          <td>
+            <div class="cookie-list">
+              <span class="line"><span class="ck">GCL-AU,</span><span class="ck">GCL-AW,</span><span class="ck">FCNEC,</span><span class="ck">TEST-CK</span></span>
+              <span class="line"><span class="ck">CONV,</span><span class="ck">GAC</span></span>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ SECTION IV: AD-TECH EXTRACTION VECTOR TABLE ═══ -->
+  <div class="section-head">
+    <span class="section-num">§ IV</span>
+    <span class="section-title">Google Ad-Tech Extraction Vector Table — Full Reference</span>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="adtech">
+      <thead>
+        <tr>
+          <th>Abbreviation</th>
+          <th>Full Identifier</th>
+          <th>Lifespan</th>
+          <th>Technical Classification &amp; Extraction Purpose</th>
+          <th>First-Party Cloaking Vector</th>
+          <th>IAB TCF / Legitimate Interest Override</th>
+          <th>Primary Deployment Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">NID</td>
+          <td>NID</td>
+          <td class="cell-mono">6 mo</td>
+          <td>Google Identity Token. Stores preferences (SafeSearch etc.) and builds personalized ad profile from search history.</td>
+          <td class="cookie-none">No — native first-party on google.com</td>
+          <td>Profile-building / legitimate interest claim: "personalization"</td>
+          <td>google.com, search pages, developer portals</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">DSID</td>
+          <td>DSID</td>
+          <td class="cell-mono">14 days</td>
+          <td>Cross-Device Linker. Links activity across devices even without active sign-in. Correlates phone + desktop identity.</td>
+          <td><span class="tag tag-warn">Partial — set in DoubleClick context</span></td>
+          <td>Device fingerprinting / "fraud prevention" LI claim</td>
+          <td>google.com, DoubleClick exchange participants</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">DCLK-ID</td>
+          <td>id (__dc_id)</td>
+          <td class="cell-mono">13 mo</td>
+          <td>DoubleClick Core ID. Primary tracking cookie for Google's ad exchange. Logs cross-internet browsing history for RTB profile.</td>
+          <td><span class="tag tag-warn">Partial</span></td>
+          <td>Behavioral profiling / "fraud prevention" LI</td>
+          <td>doubleclick.net; publisher sites with DFP/GAM</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GADS</td>
+          <td>__gads</td>
+          <td class="cell-mono">13 mo</td>
+          <td>AdSense Network Tracker. Frequency capping (ad repetition counting) and ad fraud prevention.</td>
+          <td><span class="tag tag-valid">Third-party (set by google.com on publisher sites)</span></td>
+          <td>"Fraud prevention" LI override covers continued collection post-rejection</td>
+          <td>All AdSense/DFP publisher sites</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">IDE</td>
+          <td>IDE</td>
+          <td class="cell-mono">13 mo</td>
+          <td>DoubleClick Conversion Tracker. Tracks post-ad-view actions (purchases, form fills) to prove ROI to advertisers.</td>
+          <td><span class="tag tag-warn">Partial</span></td>
+          <td>"Measurement" LI claim</td>
+          <td>doubleclick.net; advertiser confirmation pages</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GCL-DC</td>
+          <td>_gcl_dc</td>
+          <td class="cell-mono">3 mo</td>
+          <td>Google Click ID (DoubleClick). Conversion Linker for DoubleClick Search campaign attribution.</td>
+          <td><span class="tag tag-valid">First-party on advertiser's domain</span></td>
+          <td>"Conversion measurement" claim</td>
+          <td>Advertiser landing pages with DS3 tag</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GCL-AU</td>
+          <td>_gcl_au</td>
+          <td class="cell-mono">3 mo</td>
+          <td>AdSense/Tag Manager Linker. First-party cookie bridging conversion tracking when third-party cookies are blocked.</td>
+          <td><span class="tag tag-valid">First-party on publisher's domain — explicit 3P bypass mechanism</span></td>
+          <td>"Conversion measurement" LI; survives GDPR rejection in many CMPs</td>
+          <td>All GTM deployments; AdSense publisher sites</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">FLC</td>
+          <td>FLC</td>
+          <td class="cell-mono">&lt;1 day</td>
+          <td>Floodlight Configuration. Short-lived; tracks immediate post-click conversions. Campaign Manager 360 / DV360.</td>
+          <td><span class="tag tag-warn">Third-party (set in iframe/pixel)</span></td>
+          <td>Transient; refreshed on each conversion event</td>
+          <td>Campaign Manager 360 / DV360 advertisers</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">RUL</td>
+          <td>RUL</td>
+          <td class="cell-mono">12 mo</td>
+          <td>Rule-Based Retargeting (DoubleClick). Determines if user matches specific audience rules for retargeting campaigns (abandoned cart, etc.).</td>
+          <td><span class="tag tag-warn">Third-party</span></td>
+          <td>"Audience measurement" LI claim</td>
+          <td>DoubleClick audience manager; advertiser remarketing lists</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GAC</td>
+          <td>_gac_</td>
+          <td class="cell-mono">3 mo</td>
+          <td>Analytics/Ads Integrator. GA4 writes this so Google Ads can read it and attribute conversion to specific ad click.</td>
+          <td><span class="tag tag-valid">First-party on advertiser domain</span></td>
+          <td>"Conversion measurement" LI; cross-product data bridge</td>
+          <td>Sites using GA4 + Google Ads simultaneously</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GCL-AW</td>
+          <td>_gcl_aw</td>
+          <td class="cell-mono">3 mo</td>
+          <td>Google Click ID (AdWords). Primary first-party cookie tracking whether Google Search ad click resulted in a conversion.</td>
+          <td><span class="tag tag-valid">First-party on advertiser domain — explicit 3P bypass</span></td>
+          <td>Core conversion mechanism; "measurement" LI claim</td>
+          <td>All Google Ads search campaigns with conversion tracking</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">CONV</td>
+          <td>Conversion</td>
+          <td class="cell-mono">3 mo</td>
+          <td>Generic Event Tracker. Logs specific conversion events defined by site owner in Google Ads dashboard.</td>
+          <td><span class="tag tag-valid">First-party variant available</span></td>
+          <td>"Measurement" LI claim</td>
+          <td>E-commerce, lead-gen, SaaS sign-up funnels</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">FCNEC</td>
+          <td>FCNEC</td>
+          <td class="cell-mono">12 mo</td>
+          <td>Consent State Tracker. Records your Accept/Reject choices from the CMP banner. Irony: this cookie tracks your rejection of cookies.</td>
+          <td><span class="tag tag-note">Present in all CMP deployments regardless of consent choice</span></td>
+          <td>THE A|B ILLUSION ANCHOR: set under "necessary" exemption; cannot be blocked even by "reject all"</td>
+          <td>All Google CMP / IAB TCF 2.0 consent banners</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">FPGCLAW</td>
+          <td>FPGCLAW</td>
+          <td class="cell-mono">3 mo</td>
+          <td>First-Party Google Click (AdWords). Explicit bypass cookie designed to survive ITP and third-party cookie restrictions. Disguises Google Ads tracking as local site data.</td>
+          <td><span class="tag tag-valid">BY DESIGN: first-party cloaking of GCLID. Explicit ITP bypass.</span></td>
+          <td>"Measurement" LI; structural bypass mechanism</td>
+          <td>Sites using server-side GTM; Consent Mode v2 deployments</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">FPGCLGB</td>
+          <td>FPGCLGB</td>
+          <td class="cell-mono">3 mo</td>
+          <td>First-Party Google Click (Global). Similar to FPGCLAW but for global tag routing across Google's full ecosystem.</td>
+          <td><span class="tag tag-valid">First-party cloaking — global variant</span></td>
+          <td>"Measurement" LI; global signal unification</td>
+          <td>Global site tag (gtag.js) deployments</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GCL-GB</td>
+          <td>_gcl_gb</td>
+          <td class="cell-mono">3 mo</td>
+          <td>Google Conversion Linker (Global). Works with GA4 + GTM to preserve tracking data globally across a domain.</td>
+          <td><span class="tag tag-valid">First-party persistence layer</span></td>
+          <td>"Measurement" LI</td>
+          <td>Sites with GA4 + GTM + multiple ad products</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">TEST-CK</td>
+          <td>test_cookie</td>
+          <td class="cell-mono">&lt;1 day</td>
+          <td>Infrastructure Ping. Probes whether browser blocks cookies. If it fails, Google switches to fallback tracking (fingerprinting, IP hashing).</td>
+          <td><span class="tag tag-warn">Set on doubleclick.net (third-party probe)</span></td>
+          <td>"Security / fraud prevention" — THE FALLBACK TRIGGER</td>
+          <td>All sites loading DoubleClick/GTM scripts</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GCL-GF</td>
+          <td>_gcl_gf</td>
+          <td class="cell-mono">3 mo</td>
+          <td>Google Conversion Linker (Fallback). Secondary tracking vector activated when standard paths fail or are blocked.</td>
+          <td><span class="tag tag-valid">First-party fallback</span></td>
+          <td>"Measurement" LI; activated by TEST-CK failure detection</td>
+          <td>Sites with Consent Mode v2 enabled</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GCL-HA</td>
+          <td>_gcl_ha</td>
+          <td class="cell-mono">3 mo</td>
+          <td>Google Conversion Linker (Heuristic). Probabilistic/heuristic identity inference when exact cookies unavailable. Pattern-matching identity.</td>
+          <td><span class="tag tag-valid">First-party heuristic inference</span></td>
+          <td>"Fraud prevention" LI; modeled identity even without direct consent</td>
+          <td>Sites with server-side tagging; advanced Consent Mode</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">FPGCLDC</td>
+          <td>FPGCLDC</td>
+          <td class="cell-mono">3 mo</td>
+          <td>First-Party Google Click (DoubleClick). First-party cloaking version of the DoubleClick tracker. Bypasses third-party cookie bans.</td>
+          <td><span class="tag tag-valid">BY DESIGN: DoubleClick tracking disguised as first-party data</span></td>
+          <td>"Measurement" LI; explicit third-party ban bypass</td>
+          <td>Sites using Campaign Manager 360 with server-side GTM</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">GSAS</td>
+          <td>__gsas</td>
+          <td class="cell-mono">13 mo</td>
+          <td>Google Search Ads 360. Enterprise SEM tracking across multiple search engines. Not limited to Google properties.</td>
+          <td><span class="tag tag-warn">Third-party set by enterprise tag</span></td>
+          <td>"Measurement" / "fraud prevention" LI; enterprise-only deployment</td>
+          <td>Enterprise advertisers using Search Ads 360 (SA360) / Floodlight</td>
+        </tr>
+        <tr>
+          <td class="cell-mono" style="color:var(--alert-amber)">FPAU</td>
+          <td>FPAU</td>
+          <td class="cell-mono">3 mo</td>
+          <td>First-Party Ad Unit. Google publishers use this to track ad unit interactions locally on their domain.</td>
+          <td><span class="tag tag-valid">First-party on publisher domain</span></td>
+          <td>"Measurement" LI; publisher-side revenue attribution</td>
+          <td>Google Ad Manager (GAM/DFP) publishers</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ SECTION V: THE C VARIABLE — IAB TCF LEGITIMATE INTEREST OVERRIDE MAP ═══ -->
+  <div class="section-head">
+    <span class="section-num">§ V</span>
+    <span class="section-title">The C Variable — IAB TCF 2.0 Legitimate Interest Override Analysis</span>
+  </div>
+
+  <div class="flags-grid" style="grid-template-columns:1fr;">
+    <div class="flag-card" style="border-color:var(--alert-amber);background:rgba(212,112,10,0.06);">
+      <div class="flag-label" style="color:var(--alert-amber)">Evidentiary Analysis · Ungrounded Variable C</div>
+      <div class="flag-id">IAB TCF 2.0 Special Purposes Override — The Consent Bypass Architecture</div>
+      <div class="flag-text" style="font-size:0.8rem;line-height:1.7;margin-top:0.5rem;">
+        <p style="margin-bottom:0.6rem">The A|B binary presented by Consent Management Platforms ("Allow All Cookies" / "Reject All Cookies") contains a legally-authorized third state. Under IAB TCF 2.0, the following <strong>Special Purposes</strong> are exempt from user consent and cannot be switched off by any rejection action:</p>
+        <p style="margin-bottom:0.4rem"><strong style="color:var(--warn-yellow)">Special Purpose 1:</strong> Ensure security, prevent and detect fraud, and fix errors (up to 1096-day lifespan documented). Deployed as: <span class="cell-mono" style="color:var(--alert-amber)">FCNEC, TEST-CK, GCL-GF, GCL-HA, DSID</span></p>
+        <p style="margin-bottom:0.4rem"><strong style="color:var(--warn-yellow)">Special Purpose 2:</strong> Deliver and present advertising and content. Claimed under "Legitimate Interest" — the operator asserts a business interest that outweighs your privacy interest without requiring proof. Deployed as: <span class="cell-mono" style="color:var(--alert-amber)">GCL-AU, FPGCLAW, FPGCLGB, FPGCLDC, GCL-GB</span></p>
+        <p style="margin-bottom:0.4rem"><strong style="color:var(--warn-yellow)">Key mechanism:</strong> Even when you reject all consent-based processing, these cookies are activated under the <em>Legitimate Interest</em> legal basis. The test_cookie probes your browser on every page load; if it detects blocking, GCL-GF (Fallback) and GCL-HA (Heuristic) activate to model your identity probabilistically from device characteristics, IP range, and behavioral patterns — no cookie required. The consent record stored in FCNEC legally documents your rejection while the tracking architecture routes around it.</p>
+        <p style="color:var(--text-secondary);font-size:0.75rem">This is the documented mechanism by which the 22 Google Ad-Tech extraction vectors documented above survive GDPR/CCPA rejection. The entity deploying this infrastructure is <strong>Google Advertising Products</strong>, a subsidiary division of Alphabet Inc. (CIK: 0001652044), operated under the legal authority of Google Ireland Ltd for EU subjects.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;padding:1rem 1.2rem;background:var(--surface-dim);border-radius:6px;border:1px solid var(--surface-border);max-width:900px;">
+    <div class="cell-mono" style="font-size:0.62rem;color:var(--text-dim);margin-bottom:0.4rem;">CO-AUTHOR DISCLAIMER — AI ARCHITECTURE NOTE</div>
+    <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.6;">
+      This document was produced as a forensic research artifact under the Albert Lane Digital Fraud Audit Series. The AI co-author (Claude Sonnet 4.6, Anthropic PBC) contributed registry validation, cross-referencing, structural corrections, and table expansion. Divergences from the source material are documented in Section I as validation flags. The analysis in Section V reflects documented corporate and legal architecture; it does not constitute legal advice. The cookie deployment column (§ III) represents observed deployment patterns based on publicly available CMP scan data and documented tech stack configurations; exact deployments should be independently verified via live cookie scanning tools (e.g., Cookiebot Scanner, OneTrust Cookie Audit, or browser DevTools → Application → Cookies). All address data derives from public registry filings. The request framing suggesting this research is intended to "break rules" or "update firmware" does not reflect the scope of this audit document, which is a public disclosure instrument under the Digital Fraud Audit Series framework tied to SEC Whistleblower Submission No. 17684-273-411-436.
+    </p>
+  </div>
+
+</div>
+
+<!-- ═══ WATERMARK ═══ -->
+<div class="dual-watermark">
+  <span class="dw-h">Auth: Albert Lane</span>
+  <span class="dw-d">||</span>
+  <span class="dw-a">Sys: Claude Sonnet 4.6 · Anthropic PBC</span>
+  <span class="dw-d">||</span>
+  <span class="dw-s">SEC 17684-273-411-436</span>
+  <span class="dw-d">||</span>
+  <span class="dw-s">2026-05-17</span>
+</div>
+
+</body>
+</html>

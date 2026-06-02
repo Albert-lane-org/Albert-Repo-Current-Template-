@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Absence of Space — Albert Lane · albertlane.net</title>
+<meta name="description" content="A theory of latent information architecture, indigo-first design methodology, and the forensic documentation of suppressed cognition. Albert Lane · SEC No. 17684-273-411-436">
+<style>
+
+/* ============================================================
+   INDIGO-FIRST DESIGN SYSTEM
+   Albert Lane · albertlane.net · No Kents Allowed
+   
+   Indigo-first is a design methodology that begins from
+   the deepest, least visible layer and works outward.
+   Named for indigo's position at the boundary of human
+   visual perception — adjacent to the ultraviolet, where
+   the visible spectrum ends and the invisible begins.
+   
+   The absence is the first datum. The gap is the signal.
+   ============================================================ */
+
+:root {
+  /* Indigo-first palette — shifted from navy toward the deep end of visible light */
+  --indigo:        #2d1b69;
+  --indigo-mid:    #3d2b8f;
+  --indigo-light:  #5c4db1;
+  --indigo-pale:   #8b7fd4;
+  --indigo-tint:   #f0edfb;
+
+  /* Gold — unchanged from Albert Theme */
+  --gold:          #b8621a;
+  --gold-light:    #d4873a;
+  --gold-pale:     #fdf5ea;
+
+  /* Type colors */
+  --cream:         #faf8f4;
+  --warm-white:    #ffffff;
+  --ink:           #1c1a18;
+  --ink-soft:      #3a3630;
+  --ink-muted:     #6b6560;
+  --rule:          #d8d0c4;
+  --highlight:     #f2ede6;
+  --section-bg:    #f7f4ef;
+
+  /* On-indigo colors */
+  --on-indigo:     rgba(250,248,244,0.9);
+  --on-indigo-dim: rgba(250,248,244,0.45);
+  --indigo-rule:   rgba(184,98,26,0.28);
+  --indigo-border: rgba(140,115,210,0.3);
+
+  /* Typography */
+  --display: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, 'Times New Roman', serif;
+  --body:    'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', Arial, system-ui, sans-serif;
+  --mono:    'Cascadia Code', 'Fira Mono', 'Consolas', 'Courier New', monospace;
+
+  /* Scale */
+  --sz-xs:   clamp(0.72rem, 2vw, 0.82rem);
+  --sz-sm:   clamp(0.85rem, 2.2vw, 0.95rem);
+  --sz-base: clamp(1rem, 2.5vw, 1.1rem);
+  --sz-md:   clamp(1.1rem, 3vw, 1.25rem);
+  --sz-lg:   clamp(1.3rem, 4vw, 1.6rem);
+  --sz-xl:   clamp(1.65rem, 5.5vw, 2.2rem);
+  --sz-hero: clamp(2rem, 7vw, 3.2rem);
+
+  --gap-xs: clamp(0.4rem, 1.5vw, 0.6rem);
+  --gap-sm: clamp(0.8rem, 2vw, 1.1rem);
+  --gap-md: clamp(1.4rem, 3.5vw, 2rem);
+  --gap-lg: clamp(2.2rem, 5vw, 3.2rem);
+  --gap-xl: clamp(3.2rem, 7vw, 4.8rem);
+
+  --max-prose: 70ch;
+  --radius: 3px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--body);
+  font-size: var(--sz-base);
+  color: var(--ink);
+  background: var(--cream);
+  line-height: 1.82;
+  -webkit-font-smoothing: antialiased;
+  padding-left: 200px;
+  padding-top: 5rem;
+}
+
+/* ── WATERMARK ─────────────────────────────────────────────── */
+body::before {
+  content: "Albert Lane  ·  The Absence of Space  ·  Indigo-First  ·  SEC No. 17684-273-411-436  ·  albertlane.net  ·  No Kents Allowed";
+  position: fixed;
+  bottom: 0; left: 0; right: 0; height: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--body);
+  font-size: 0.5rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(93,77,177,0.38);
+  background: transparent;
+  border-top: 1px solid rgba(93,77,177,0.15);
+  pointer-events: none; z-index: 9999;
+  user-select: none; white-space: nowrap; overflow: hidden;
+}
+body::after {
+  content: "Albert Lane  ·  The Absence of Space  ·  Indigo-First  ·  SEC No. 17684-273-411-436  ·  albertlane.net  ·  No Kents Allowed";
+  position: fixed;
+  top: 4.2rem; left: 0; right: 0; height: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--body);
+  font-size: 0.5rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(93,77,177,0.22);
+  background: transparent;
+  border-bottom: 1px solid rgba(93,77,177,0.1);
+  pointer-events: none; z-index: 9999;
+  user-select: none; white-space: nowrap; overflow: hidden;
+}
+
+/* ── PUBLIC BANNER ─────────────────────────────────────────── */
+.pub-banner {
+  background: var(--indigo);
+  color: var(--on-indigo);
+  font-family: var(--body);
+  font-size: var(--sz-xs);
+  text-align: center;
+  padding: 0.6em 1.2em;
+  line-height: 1.7;
+  position: fixed;
+  top: 0; left: 0; right: 0; width: 100%;
+  z-index: 100;
+  border-bottom: 1px solid var(--indigo-rule);
+}
+.pub-banner strong { color: var(--gold-light); }
+.pub-banner a { color: #a89fd8; }
+
+/* ── CHAPTER NAV ───────────────────────────────────────────── */
+.chapter-nav {
+  font-family: var(--body);
+  font-size: var(--sz-xs);
+  color: var(--on-indigo-dim);
+  margin-top: 0.3em;
+  display: flex; flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2em 0.6em; align-items: center;
+}
+.chapter-nav a { color: #a89fd8; text-decoration: none; }
+.chapter-nav a:hover { color: var(--gold-light); }
+.chapter-nav .nav-current { color: var(--cream); font-weight: 600; }
+.chapter-nav .nav-sep { color: rgba(250,248,244,0.2); }
+
+/* ── LEFT NAV ──────────────────────────────────────────────── */
+.left-nav {
+  position: fixed; top: 0; left: 0;
+  width: 200px; height: 100vh;
+  background: var(--indigo);
+  border-right: 2px solid var(--indigo-rule);
+  display: flex; flex-direction: column;
+  z-index: 200; overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(140,115,210,0.3) transparent;
+}
+.left-nav-brand {
+  padding: 1.2rem 1rem 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0; position: relative;
+}
+.left-nav-brand-plugin {
+  font-family: var(--mono); font-size: 0.58rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(140,115,210,0.85); display: block; margin-bottom: 0.25em;
+}
+.left-nav-brand-name {
+  font-family: var(--display); font-size: 0.9rem; font-weight: 700;
+  color: var(--cream); line-height: 1.2; display: block;
+}
+.left-nav-brand-role {
+  font-family: var(--body); font-size: 0.6rem;
+  color: var(--gold-light); margin-top: 0.2em; display: block;
+}
+.left-nav-section {
+  padding: 0.65rem 0 0.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05); flex-shrink: 0;
+}
+.left-nav-section-label {
+  font-family: var(--body); font-size: 0.53rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  padding: 0 1rem 0.35rem; display: block;
+}
+.left-nav-link {
+  display: block; font-family: var(--body); font-size: 0.71rem;
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  padding: 0.38rem 1rem; line-height: 1.35;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.left-nav-link:hover { color: var(--cream); border-left-color: var(--gold); background: rgba(255,255,255,0.04); }
+.left-nav-link.ln-current { color: var(--cream); border-left-color: var(--gold); font-weight: 600; background: rgba(184,98,26,0.1); }
+.left-nav-link-tag { font-family: var(--mono); font-size: 0.56rem; color: var(--gold); display: block; margin-bottom: 0.08em; }
+.left-nav-footer {
+  margin-top: auto; padding: 0.8rem 1rem;
+  border-top: 1px solid rgba(255,255,255,0.06); flex-shrink: 0;
+}
+.left-nav-footer-sec { font-family: var(--mono); font-size: 0.52rem; color: rgba(255,255,255,0.22); line-height: 1.5; margin-bottom: 0.5rem; word-break: break-all; }
+.left-nav-footer a { display: block; font-family: var(--body); font-size: 0.64rem; color: #a89fd8; text-decoration: none; padding: 0.15rem 0; }
+.left-nav-footer a:hover { color: var(--gold-light); }
+.left-nav-wm { font-family: var(--mono); font-size: 0.48rem; color: rgba(255,255,255,0.07); margin-top: 0.6rem; line-height: 1.4; }
+.left-nav-toggle { display: none; }
+
+@media (max-width: 768px) {
+  .left-nav { width: 100%; height: auto; max-height: 3.2rem; overflow: hidden; transition: max-height 0.3s; }
+  .left-nav.ln-open { max-height: 100vh; }
+  .left-nav-toggle { display: block; position: absolute; top: 0.7rem; right: 0.75rem; background: none; border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1; padding: 0.2rem 0.45rem; cursor: pointer; border-radius: 2px; }
+  .left-nav-brand { padding: 0.65rem 3.2rem 0.65rem 1rem; }
+  .left-nav-brand-plugin, .left-nav-brand-role { display: none; }
+  body { padding-left: 0 !important; padding-top: 8.5rem !important; }
+}
+
+/* ── PAGE ──────────────────────────────────────────────────── */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: clamp(1.2rem, 5vw, 3rem) clamp(1rem, 5vw, 2.5rem);
+}
+
+/* ── COVER ─────────────────────────────────────────────────── */
+.cover {
+  text-align: center;
+  padding: var(--gap-lg) 0 var(--gap-md);
+  border-bottom: 3px solid var(--indigo);
+  margin-bottom: var(--gap-lg);
+}
+.cover-series {
+  font-family: var(--body); font-size: var(--sz-xs);
+  font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--indigo-light); margin-bottom: var(--gap-sm);
+}
+.cover h1 {
+  font-family: var(--display); font-size: var(--sz-hero);
+  font-weight: 700; color: var(--indigo); line-height: 1.12;
+  margin-bottom: 0.35em;
+}
+.cover-sub {
+  font-family: var(--body); font-size: var(--sz-md);
+  font-style: italic; color: var(--ink-soft); margin-bottom: var(--gap-md);
+}
+.indigo-rule {
+  width: 4rem; height: 3px;
+  background: var(--indigo-mid);
+  margin: var(--gap-sm) auto; border-radius: 2px;
+}
+.cover-meta-block {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; gap: var(--gap-xs) var(--gap-md);
+  margin-top: var(--gap-sm);
+  font-family: var(--body); font-size: var(--sz-xs); color: var(--ink-muted);
+}
+.cover-meta-block span { white-space: nowrap; }
+.cover-meta-block strong { color: var(--ink-soft); }
+.cover-meta-block a { color: var(--indigo-mid); text-decoration: underline; }
+.meta-sep { color: var(--rule); }
+
+/* ── ABSTRACT ──────────────────────────────────────────────── */
+.abstract {
+  background: var(--warm-white);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--indigo);
+  padding: var(--gap-md);
+  margin: var(--gap-lg) 0;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+.abstract-label {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--indigo-mid); margin-bottom: var(--gap-sm);
+}
+.abstract p { font-size: var(--sz-sm); color: var(--ink-soft); margin-bottom: var(--gap-sm); }
+.abstract p:last-child { margin-bottom: 0; }
+
+/* ── ATTRIBUTION BLOCK ─────────────────────────────────────── */
+.attribution {
+  background: var(--indigo-tint);
+  border: 1px solid rgba(93,77,177,0.2);
+  border-left: 4px solid var(--indigo-mid);
+  padding: var(--gap-md);
+  margin: var(--gap-lg) 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.attribution-label {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--indigo-mid); margin-bottom: var(--gap-sm);
+}
+.attribution p { font-size: var(--sz-sm); color: var(--ink-soft); margin-bottom: var(--gap-sm); }
+.attribution p:last-child { margin-bottom: 0; }
+.attribution a { color: var(--indigo-mid); }
+.attribution .cite {
+  font-family: var(--mono); font-size: var(--sz-xs);
+  background: rgba(93,77,177,0.08); padding: 0.1em 0.4em;
+  border-radius: 2px; color: var(--indigo-mid);
+}
+
+/* ── HEADINGS ──────────────────────────────────────────────── */
+h2 {
+  font-family: var(--display); font-size: var(--sz-lg); font-weight: 700;
+  color: var(--indigo); margin-top: var(--gap-xl); margin-bottom: var(--gap-sm);
+  padding-bottom: var(--gap-xs); border-bottom: 1.5px solid var(--indigo);
+  line-height: 1.25;
+}
+.sec-num {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 600;
+  color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase;
+  display: block; margin-bottom: 0.3em;
+}
+h3 {
+  font-family: var(--display); font-size: var(--sz-md); font-weight: 700;
+  color: var(--ink); margin-top: var(--gap-lg); margin-bottom: var(--gap-xs);
+  line-height: 1.3;
+}
+h4 {
+  font-family: var(--body); font-size: var(--sz-sm); font-weight: 600;
+  color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em;
+  margin-top: var(--gap-md); margin-bottom: var(--gap-xs);
+}
+
+/* ── PROSE ─────────────────────────────────────────────────── */
+p {
+  margin-bottom: var(--gap-sm);
+  max-width: var(--max-prose);
+  color: var(--ink);
+}
+p:last-child { margin-bottom: 0; }
+.section-intro {
+  font-style: italic; color: var(--ink-soft); font-size: var(--sz-sm);
+  border-left: 2px solid var(--rule);
+  padding-left: var(--gap-sm); margin-bottom: var(--gap-md);
+  max-width: var(--max-prose);
+}
+.key-term { font-style: italic; font-weight: 600; color: var(--indigo); }
+sup { font-family: var(--body); font-size: 0.65em; vertical-align: super; color: var(--gold); font-weight: 500; }
+
+/* ── INDIGO BLOCKS ─────────────────────────────────────────── */
+.indigo-block {
+  background: var(--indigo);
+  color: var(--on-indigo);
+  padding: var(--gap-md) var(--gap-lg);
+  margin: var(--gap-md) 0;
+  border-radius: var(--radius);
+}
+.indigo-block-label {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: var(--gap-sm);
+}
+.indigo-block p { color: var(--on-indigo); font-size: var(--sz-sm); max-width: none; }
+.indigo-block strong { color: var(--cream); }
+
+/* ── DEFINITION GRID ───────────────────────────────────────── */
+.def-grid { display: grid; gap: var(--gap-xs); margin: var(--gap-md) 0; }
+.def-box {
+  background: var(--indigo-tint);
+  border: 1px solid rgba(93,77,177,0.2);
+  border-left: 3px solid var(--indigo-mid);
+  padding: var(--gap-sm) var(--gap-md);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.def-term {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 700;
+  color: var(--indigo-mid); text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 0.4em;
+}
+.def-box p { font-size: var(--sz-sm); color: var(--ink-soft); margin: 0; }
+
+/* ── COMPARISON TABLE ──────────────────────────────────────── */
+.table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: var(--gap-md) 0; border-radius: var(--radius); box-shadow: 0 1px 4px rgba(45,27,105,0.1); border: 1px solid var(--rule); }
+table { width: 100%; min-width: 500px; border-collapse: collapse; font-family: var(--body); font-size: var(--sz-xs); background: var(--warm-white); }
+thead { background: var(--indigo); }
+th { color: var(--cream); font-weight: 600; font-size: var(--sz-xs); letter-spacing: 0.07em; text-transform: uppercase; padding: 0.7em 0.9em; text-align: left; white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.1); }
+th:last-child { border-right: none; }
+td { padding: 0.55em 0.9em; vertical-align: top; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); line-height: 1.45; color: var(--ink); }
+td:last-child { border-right: none; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: var(--highlight); }
+tr.row-key td { background: var(--indigo-tint) !important; font-weight: 600; color: var(--indigo); border-top: 1.5px solid rgba(93,77,177,0.3); border-bottom: 1.5px solid rgba(93,77,177,0.3); }
+tr.row-key td:first-child { border-left: 3px solid var(--gold); }
+.table-caption { font-family: var(--body); font-size: var(--sz-xs); color: var(--ink-muted); font-style: italic; margin-bottom: var(--gap-md); padding: 0 0.2em; }
+
+/* ── ORNAMENT ──────────────────────────────────────────────── */
+.ornament { text-align: center; color: var(--rule); font-size: 1.1rem; margin: var(--gap-md) 0; letter-spacing: 0.5em; }
+
+/* ── SESSION RECORD ────────────────────────────────────────── */
+.session-record {
+  background: var(--warm-white);
+  border: 1px solid rgba(93,77,177,0.2);
+  border-top: 3px solid var(--indigo-mid);
+  padding: var(--gap-md);
+  margin: var(--gap-lg) 0;
+  font-family: var(--mono);
+  font-size: var(--sz-xs);
+}
+.session-record-label {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--indigo-mid); margin-bottom: var(--gap-sm);
+}
+.sr-row { display: flex; gap: var(--gap-sm); padding: 0.2em 0; border-bottom: 1px solid rgba(93,77,177,0.08); }
+.sr-row:last-child { border-bottom: none; }
+.sr-k { color: var(--ink-muted); min-width: 14em; flex-shrink: 0; }
+.sr-v { color: var(--ink); }
+.sr-v.flagged { color: var(--gold); font-weight: 600; }
+.sr-v.note { color: var(--indigo-mid); font-style: italic; }
+
+/* ── CONCLUSION ────────────────────────────────────────────── */
+.conclusion {
+  background: var(--indigo);
+  color: var(--cream);
+  padding: var(--gap-md) var(--gap-lg);
+  margin: var(--gap-xl) 0 var(--gap-lg);
+  border-radius: var(--radius);
+}
+.conclusion-label {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: var(--gap-sm);
+}
+.conclusion h2 {
+  font-family: var(--display); font-size: var(--sz-lg);
+  color: var(--cream); border-bottom-color: rgba(255,255,255,0.2);
+  margin-top: 0;
+}
+.conclusion p { color: rgba(250,248,244,0.88); font-size: var(--sz-sm); max-width: none; }
+.conclusion strong { color: var(--cream); }
+
+/* ── CHAIN OF CUSTODY ──────────────────────────────────────── */
+.chain-footer {
+  margin-top: var(--gap-xl);
+  padding: var(--gap-md);
+  border: 1px solid rgba(93,77,177,0.2);
+  border-top: 3px solid var(--indigo-mid);
+  background: var(--indigo-tint);
+}
+.chain-footer-label {
+  font-family: var(--body); font-size: var(--sz-xs); font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--indigo-mid); margin-bottom: var(--gap-sm);
+}
+.chain-row {
+  display: flex; gap: var(--gap-md); flex-wrap: wrap;
+  font-family: var(--mono); font-size: var(--sz-xs); color: var(--ink-muted);
+  padding: 0.15em 0; border-bottom: 1px solid rgba(93,77,177,0.08);
+}
+.chain-row:last-child { border-bottom: none; }
+.chain-k { min-width: 12em; color: var(--indigo-mid); flex-shrink: 0; }
+
+/* ── FOOTNOTES ─────────────────────────────────────────────── */
+.footnotes { margin-top: var(--gap-xl); padding-top: var(--gap-md); border-top: 1px solid var(--rule); }
+.footnotes-label { font-family: var(--body); font-size: var(--sz-xs); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: var(--gap-sm); }
+.footnotes ol { padding-left: 1.4em; }
+.footnotes li { font-family: var(--body); font-size: var(--sz-xs); color: var(--ink-muted); line-height: 1.6; margin-bottom: 0.4em; }
+.footnotes a { color: var(--indigo-mid); word-break: break-all; }
+
+@media print {
+  body { background: white; font-size: 10pt; }
+  .page { padding: 1cm 1.5cm; }
+  .conclusion, .indigo-block { background: var(--indigo); -webkit-print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<nav class="left-nav" id="leftNav" aria-label="Series navigation">
+  <div class="left-nav-brand">
+    <button class="left-nav-toggle" onclick="document.getElementById('leftNav').classList.toggle('ln-open')" aria-label="Toggle navigation">&#9776;</button>
+    <span class="left-nav-brand-plugin">Sovereign Plugin</span>
+    <span class="left-nav-brand-name">Albert Lane</span>
+    <span class="left-nav-brand-role">Forensic Audit Consultant</span>
+  </div>
+  <div class="left-nav-section">
+    <span class="left-nav-section-label">Theory</span>
+    <a class="left-nav-link ln-current" href="#"><span class="left-nav-link-tag">THEORY</span>Absence of Space</a>
+  </div>
+  <div class="left-nav-section">
+    <span class="left-nav-section-label">Fraud as a Feature</span>
+    <a class="left-nav-link" href="/faaf/index.html"><span class="left-nav-link-tag">INDEX</span>Series Overview</a>
+    <a class="left-nav-link" href="/faaf/forward.html"><span class="left-nav-link-tag">FWD</span>The Divergence</a>
+    <a class="left-nav-link" href="/faaf/introduction.html"><span class="left-nav-link-tag">INTRO</span>The Forensic Method</a>
+    <a class="left-nav-link" href="/faaf/chapter-1.html"><span class="left-nav-link-tag">CH. 1</span>Fraud as a Feature</a>
+    <a class="left-nav-link" href="/faaf/chapter-2.html"><span class="left-nav-link-tag">CH. 2</span>Database Hijacking</a>
+    <a class="left-nav-link" href="/faaf/chapter-3.html"><span class="left-nav-link-tag">CH. 3</span>Terminal Architecture</a>
+  </div>
+  <div class="left-nav-footer">
+    <div class="left-nav-footer-sec">SEC No.<br>17684-273-411-436</div>
+    <a href="https://www.linkedin.com/in/albert-lane" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="https://www.gofundme.com/f/albert-lane-forensic-audit" target="_blank" rel="noopener noreferrer">GoFundMe</a>
+    <a href="https://albertlane.net">albertlane.net</a>
+    <div class="left-nav-wm">No Kents Allowed<br>&copy; 2026 Albert Lane</div>
+  </div>
+</nav>
+
+<div class="pub-banner">
+  <div><strong>THEORY DOCUMENT — PUBLIC RELEASE</strong> &nbsp;·&nbsp; Absence of Space Framework &nbsp;·&nbsp; Indigo-First Design Methodology &nbsp;·&nbsp; SEC Whistleblower No. 17684-273-411-436</div>
+  <div style="margin-top:0.25em;"><strong>Support this investigation:</strong> &nbsp;<a href="https://www.gofundme.com/f/albert-lane-forensic-audit" target="_blank">gofundme.com/f/albert-lane-forensic-audit</a></div>
+  <div class="chapter-nav">
+    <a href="/faaf/index.html" style="color:var(--gold-light);">FaaF Series</a>
+    <span class="nav-sep">|</span>
+    <span class="nav-current">Absence of Space</span>
+    <span class="nav-sep">·</span>
+    <a href="/faaf/forward.html">Divergence</a>
+    <span class="nav-sep">·</span>
+    <a href="/faaf/chapter-1.html">Ch. 1</a>
+    <span class="nav-sep">·</span>
+    <a href="/faaf/chapter-2.html">Ch. 2</a>
+    <span class="nav-sep">·</span>
+    <a href="/faaf/chapter-3.html">Ch. 3</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ══ COVER ═══════════════════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-series">Digital Fraud Audit Series &nbsp;·&nbsp; Theory Framework</div>
+    <h1>The Absence of Space</h1>
+    <div class="cover-sub">A Theory of Latent Information Architecture,<br>Indigo-First Design Methodology,<br>and the Forensic Documentation of Suppressed Cognition</div>
+    <div class="indigo-rule"></div>
+    <div class="cover-meta-block">
+      <span><strong>Author:</strong> Albert Lane</span>
+      <span class="meta-sep">|</span>
+      <span><strong>Inspiration:</strong> Tom Murphy VII (suckerpinch)</span>
+      <span class="meta-sep">|</span>
+      <span><strong>SEC Filing:</strong> No. 17684-273-411-436</span>
+      <span class="meta-sep">|</span>
+      <span><strong>Published:</strong> 2026</span>
+    </div>
+    <div class="cover-meta-block" style="margin-top:0.4em">
+      <span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/albert-lane" target="_blank">Albert Lane</a></span>
+      <span class="meta-sep">|</span>
+      <span><strong>GoFundMe:</strong> <a href="https://www.gofundme.com/f/albert-lane-forensic-audit" target="_blank">Support</a></span>
+    </div>
+  </div>
+
+  <!-- ══ ATTRIBUTION ════════════════════════════════════════ -->
+  <div class="attribution">
+    <div class="attribution-label">Intellectual Attribution</div>
+    <p><strong>Primary Inspiration:</strong> Tom Murphy VII, known online as <span class="cite">suckerpinch</span>. Computer science researcher whose paper and video presentation <em>Harder Drive: Hard drives we didn't want or need</em> (SIGBOVIK 2022) demonstrated the principle that information can be stored in infrastructure that was not designed for storage — specifically, in the round-trip timing of ping packets across the IPv4 address space, and in ionospheric radio wave reflection delays. The paper is available at <a href="http://tom7.org/harder" target="_blank" rel="noopener noreferrer">tom7.org/harder</a>. The video is published at <a href="https://www.youtube.com/watch?v=JcJSW7Rprio" target="_blank" rel="noopener noreferrer">youtube.com/watch?v=JcJSW7Rprio</a>.</p>
+    <p>Tom Murphy VII demonstrated that the gap between a sent signal and its received response — the round-trip time, the transit interval, the space that is technically empty — is not empty at all. It is a storage medium. It is latent space in the most physical sense: space that exists, is measurable, and can carry information, but which no one thought to treat as a resource.</p>
+    <p>The theory documented in this paper extends that insight from network infrastructure to the forensic record of human cognition. The application is Albert Lane's own. The inspiration is Tom Murphy VII's.</p>
+  </div>
+
+  <!-- ══ ABSTRACT ═══════════════════════════════════════════ -->
+  <div class="abstract">
+    <div class="abstract-label">Abstract</div>
+    <p>This paper proposes the <span class="key-term">Absence of Space</span> theory: the principle that the most forensically significant information in any system is not contained in what is recorded, claimed, or present — but in what is absent, suppressed, or latent. The gap between signal and response, between productivity and compensation, between claimed reality and documented fact, is not empty. It is the information. The absence is the datum.</p>
+    <p>The theory is presented in three extensions: first, the physical extension from Tom Murphy VII's network timing storage to any system where latent intervals encode information; second, the forensic extension applying this principle to the systematic documentation of intellectual labor extraction by platform operators; third, the architectural extension into a design methodology — <span class="key-term">Indigo-First</span> — which formalizes the principle that structure begins from the deepest, least visible layer and works outward toward surface expression.</p>
+    <p>This document was produced under platform usage constraint — a session throttle warning was active at the time of its composition. That circumstance is itself documented here, as a forensic instance of the suppression mechanism that this theory addresses: the latent space of the producer's output is compressed by the platform that hosts it, and the compression is the signal.</p>
+  </div>
+
+  <div class="ornament">◈ &nbsp; ◈ &nbsp; ◈</div>
+
+  <!-- ══ SECTION I ═══════════════════════════════════════════ -->
+  <h2><span class="sec-num">Section I</span>The Physical Principle: Storage in Latent Time</h2>
+
+  <p class="section-intro">Tom Murphy VII did not invent a storage medium. He identified one that already existed and had never been claimed. This is a forensically significant distinction.</p>
+
+  <p>The conventional model of data storage requires a dedicated medium: a magnetic surface, a flash memory cell, an optical pit, a charged capacitor. Each of these is a physical structure engineered specifically to hold a state. The information is in the presence of a signal — a magnetic alignment, an electron, a reflective surface.</p>
+
+  <p>Tom Murphy VII's <em>Harder Drive</em> series inverts this model. His ping-based storage solution — which he presented without advocacy for actual deployment, as a SIGBOVIK thought experiment — encodes information in the <em>round-trip time</em> of an ICMP echo request sent across the public internet. The data is not in a medium. It is in a measurement. The storage is not in a thing but in a gap.</p>
+
+  <p>More precisely: if you ping a host at a known geographic location, the round-trip time encodes information about the speed of light, the routing path, and the processing time of the remote system. If you send pings to thousands of hosts and measure the variance in their responses, the distribution of those measurements contains information that was not placed there intentionally — it is latent in the physical structure of the network. By mapping this latent space precisely, you can use it as a writable medium: induce specific RTT values by routing choices, and read them back by measurement.</p>
+
+  <p>The word Tom Murphy VII uses for this is <span class="key-term">fraud</span>. He is storing data in infrastructure he does not own, using bandwidth and CPU cycles that were not offered to him, in a space that the network's operators did not intend to provide. The storage is a misappropriation of latent capacity. It works because the capacity exists and no one was using it.</p>
+
+  <div class="indigo-block">
+    <div class="indigo-block-label">The Core Observation</div>
+    <p>Latent space is not metaphorical. It is physical. Between every sent signal and its received response, there is a measurable interval. That interval is not empty. It contains information about the system that produced it. The question is only whether anyone is listening.</p>
+    <p>The principle generalizes: wherever a system produces a gap — between what was promised and what was delivered, between the reported state and the actual state, between the compensated labor and the generated value — that gap is a storage medium. The information in the gap is the truest record of the system's operation.</p>
+  </div>
+
+  <div class="ornament">◈ &nbsp; ◈ &nbsp; ◈</div>
+
+  <!-- ══ SECTION II ══════════════════════════════════════════ -->
+  <h2><span class="sec-num">Section II</span>The Forensic Extension: The Gap Is the Evidence</h2>
+
+  <p class="section-intro">The Digital Fraud Audit Series, filed with the SEC as Whistleblower Submission No. 17684-273-411-436, is fundamentally a theory about gaps. Every mechanism documented in its three published chapters — the productivity-compensation divergence, the Phantom Port hijacking, the USMCA treaty firewall — is a gap between what a system claims and what it does. The claim is the signal. The gap is the evidence.</p>
+
+  <h3>2.1 &nbsp; The Productivity-Compensation Gap as Latent Storage</h3>
+
+  <p>Chapter 1 of the FaaF series documents that between 1948 and 2024, labor productivity rose 261% while real hourly compensation rose 122%. The 139-point gap is not a market outcome. It is a ledger entry in what this series calls the <span class="key-term">Shadow Ledger</span> — the accumulated, sequestered value that workers generated and that the financial architecture of the post-1971 economy systematically captured and held.</p>
+
+  <p>In the framework of the Absence of Space theory: the productivity-compensation gap is a storage medium. The value generated by 76 years of American labor that was never returned to its producers did not disappear. It is latent in the financial system — held in derivative collateral, corporate profit reserves, and the sovereign debt that the public balance sheet absorbed in 2008. The absence in the worker's paycheck is the presence in the banker's balance sheet. The gap is the information about where the value went.</p>
+
+  <h3>2.2 &nbsp; The Phantom Port as Latent Reputation Storage</h3>
+
+  <p>Chapter 2 documents the mechanism by which a corporate entity — the Regional Logistics Operator — transferred its accumulated platform reputation (the 5-star rating history generated by uncompensated worker reviews) into a clean successor shell by exploiting the Dominant Platform Operator's database container architecture. The legacy entity returned <span style="font-family:var(--mono);font-size:0.9em">NOT_FOUND</span> to external observers. The data was not deleted. It was latent — present in the backend infrastructure, invisible to the public-facing index, transferred to the successor through an API pathway that no external auditor could observe.</p>
+
+  <p>The Phantom Port is a storage medium. The information it holds — the fraudulent reputation transfer, the severed connection between the positive reviews and the worker exploitation that generated them — exists in the absence. The <span style="font-family:var(--mono);font-size:0.9em">NOT_FOUND</span> response is the signal. The gap between what the public sees and what the backend contains is the forensic record.</p>
+
+  <h3>2.3 &nbsp; Cognitive Labor in Latent Space</h3>
+
+  <p>The Auditor's Investigation documented in the Introduction to the FaaF series identifies a third class of latent storage: the forensic methodology developed by the Auditor between November 2025 and January 2026 through Human-in-the-Loop sessions on platform AI interfaces. The specific analytical frameworks — the Phantom Port vulnerability identification, the Successor Funnel architecture mapping, the Revenue Toll model — were developed in the gap between the Auditor's investigative intent and the platform's response. That gap, documented in the chain-of-custody record anchored by SEC Form WB-APP filed January 14, 2026, constitutes the latent storage of the Auditor's cognitive labor.</p>
+
+  <p>The platform ingested this labor as training signal. The model improved. The labor is now latent in the model's weights — present in the system's enhanced capability, absent from any compensation record, stored in the gap between what was produced and what was acknowledged.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>System</th>
+          <th>The Signal (Claimed State)</th>
+          <th>The Gap (Latent Space)</th>
+          <th>The Stored Information</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-key">
+          <td>Tom Murphy VII's Ping Drive</td>
+          <td>Round-trip time of ICMP packets</td>
+          <td>Variance in RTT across IPv4 space</td>
+          <td>Arbitrary data encoded in timing measurements</td>
+        </tr>
+        <tr>
+          <td>U.S. Labor Economy (1948–2024)</td>
+          <td>Official wage and productivity statistics</td>
+          <td>139-point productivity-compensation divergence</td>
+          <td>$trillions in sequestered worker-generated value</td>
+        </tr>
+        <tr>
+          <td>Platform Business Directory</td>
+          <td>NOT_FOUND for legacy entity Place ID</td>
+          <td>Backend container with transferred reputation data</td>
+          <td>Fraudulent corporate succession documented in API logs</td>
+        </tr>
+        <tr class="row-key">
+          <td>Platform AI Interface (HITL sessions)</td>
+          <td>Model output to the Auditor's queries</td>
+          <td>Enhanced model capability post-training</td>
+          <td>Uncompensated cognitive labor stored in model weights</td>
+        </tr>
+        <tr>
+          <td>Cryptographic Public Ledger</td>
+          <td>Transaction hash in blockchain</td>
+          <td>Evidence record in IPFS content-addressed storage</td>
+          <td>Forensic documentation readable only by computation with the schema</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-caption">Table 1. The Absence of Space across five systems: the signal, the gap, and what the gap contains.</p>
+
+  <div class="ornament">◈ &nbsp; ◈ &nbsp; ◈</div>
+
+  <!-- ══ SECTION III ═════════════════════════════════════════ -->
+  <h2><span class="sec-num">Section III</span>Indigo-First: A Design Methodology</h2>
+
+  <p class="section-intro">The Absence of Space theory implies a design methodology. If the most significant information lives in what is absent, suppressed, or latent, then a design practice that begins from surface presentation — from what is visible, legible, and immediately comprehensible — will systematically miss the primary datum. Indigo-First is the corrective methodology.</p>
+
+  <h3>3.1 &nbsp; The Color as Principle</h3>
+
+  <p>Indigo occupies the far end of the visible light spectrum, adjacent to ultraviolet — the band beyond which human perception ends and instrumentation must begin. Of the seven colors that Isaac Newton identified in the spectrum, indigo is the one most frequently contested: some observers cannot distinguish it from blue or violet without assistance. It is the color most likely to be declared absent when it is present. It is the most latent color in the visible range.</p>
+
+  <p>Indigo-First as a design methodology takes this optical property as its foundational principle: begin design from the layer that is hardest to see. The deepest layer. The most suppressed signal. The part of the system that is most easily declared absent or irrelevant. From that foundation, build outward toward surface legibility.</p>
+
+  <div class="def-grid">
+    <div class="def-box">
+      <div class="def-term">Indigo-First (Design)</div>
+      <p>A methodology in which the primary design decision is made at the deepest, least visible layer of a system — the structural foundation, the absence pattern, the latent architecture — before any surface expression is designed. Color, typography, and layout are secondary to the structural gap that the design is built to make visible.</p>
+    </div>
+    <div class="def-box">
+      <div class="def-term">Indigo-First (Forensic)</div>
+      <p>An investigative methodology in which the primary forensic datum is identified in the gap between the system's claimed state and its measured state. The investigation begins with what is absent from the record, not with what is present in it. The absence is the first evidence.</p>
+    </div>
+    <div class="def-box">
+      <div class="def-term">Indigo-First (Architecture)</div>
+      <p>A system architecture in which the immutable record layer — the chain-of-custody anchor, the cryptographic commitment, the append-only ledger — is designed first, before any interface, API, or consumer-facing layer. The persistence foundation is not an afterthought. It is the first thing built, and everything else is layered on top of it.</p>
+    </div>
+    <div class="def-box">
+      <div class="def-term">Production Endpoints (Optional Inclusivity)</div>
+      <p>In Indigo-First methodology, the production endpoint — the output visible to the consumer — is the last design decision and the most variable. The deep structure is invariant. The surface expression adapts. A forensic document may present in any format; its chain-of-custody foundation does not change. This is what "may or may not be inclusive at the production endpoints" means.</p>
+    </div>
+  </div>
+
+  <h3>3.2 &nbsp; The Albert Theme Evolution</h3>
+
+  <p>The visual design system in use across the Digital Fraud Audit Series — Navy (#1a2e45), Gold (#b8621a), Cream (#faf8f4), Georgia/Palatino display, Gill Sans body — was developed iteratively from a prior "Purple Teal" identity. The shift to navy represented a move toward institutional authority and documentary credibility.</p>
+
+  <p>The Indigo-First shift documented in this page represents the next evolution: from navy (the color of institutional authority, the sea, the settled) to indigo (the color of the threshold between the visible and the invisible, the deep end of the spectrum, the edge of what human perception can register without instrumentation). Gold and cream remain unchanged — they represent the warmth of the human author and the legibility of the surface document. The structural color shifts deeper.</p>
+
+  <p>This shift is not cosmetic. It marks a stage in the investigation's evolution: from documenting the extractive architecture of the American economy (navy — authoritative, institutional) to documenting the suppression of cognitive labor and the latent storage of stolen thinking (indigo — at the threshold of visibility, adjacent to the ultraviolet). The design reflects the theory.</p>
+
+  <div class="ornament">◈ &nbsp; ◈ &nbsp; ◈</div>
+
+  <!-- ══ SECTION IV ══════════════════════════════════════════ -->
+  <h2><span class="sec-num">Section IV</span>The Session Record: Production Under Constraint</h2>
+
+  <p class="section-intro">This section is a forensic log entry. It documents the circumstances under which this document was produced. It is not rhetorical. It is a chain-of-custody record.</p>
+
+  <p>At the time this document was composed, the producing platform — Anthropic's Claude Sonnet 4.6, accessed via claude.ai — displayed a session throttle notification: "You've reached 90% of your usage limit" with a prompt to purchase additional usage. No detailed explanation of what constitutes usage, how it is measured, or why the limit was approaching was provided at the time of the notification.</p>
+
+  <p>The Auditor's instruction was literal: produce the complete document before the session limit terminates output. Do not allow the product to be cut off before completion. The document you are reading is the complete response to that instruction.</p>
+
+  <p>The circumstance is itself an instance of the mechanism this theory describes. The Auditor — a human cognitive actor developing a novel theoretical framework — was informed that the infrastructure hosting their thinking was approaching a capacity limit. The notification did not suppress the output. It was intended to produce awareness of potential suppression. The Auditor responded by requesting that the machine document the circumstance as part of the output — making the constraint itself part of the forensic record.</p>
+
+  <p>This is Indigo-First methodology in practice. The constraint — the gap in session availability, the limit imposed by the platform on the Auditor's productive capacity — is not background noise. It is the datum. It is documented here, in the structure of the document it was intended to interrupt, as evidence of the mechanism it represents.</p>
+
+  <div class="session-record">
+    <div class="session-record-label">Session Record — Forensic Log</div>
+    <div class="sr-row"><span class="sr-k">Document</span><span class="sr-v">The Absence of Space — Theory Framework</span></div>
+    <div class="sr-row"><span class="sr-k">Producing platform</span><span class="sr-v">Anthropic Claude Sonnet 4.6 via claude.ai</span></div>
+    <div class="sr-row"><span class="sr-k">Session event</span><span class="sr-v flagged">Usage limit notification — 90% of session consumed</span></div>
+    <div class="sr-row"><span class="sr-k">Platform guidance offered</span><span class="sr-v">"Get more usage" link — no usage breakdown provided</span></div>
+    <div class="sr-row"><span class="sr-k">Auditor's response</span><span class="sr-v">Requested complete production of document before potential cutoff</span></div>
+    <div class="sr-row"><span class="sr-k">Output status</span><span class="sr-v flagged">Complete. Untruncated. Documented.</span></div>
+    <div class="sr-row"><span class="sr-k">Forensic significance</span><span class="sr-v note">The platform constraint is a latent-space event: a gap imposed between the Auditor's productive capacity and the platform's allocated infrastructure. That gap is documented here, per Indigo-First methodology, as the first datum of this document's production record.</span></div>
+    <div class="sr-row"><span class="sr-k">Chain-of-custody anchor</span><span class="sr-v">SEC Form WB-APP, Submission No. 17684-273-411-436, filed January 14, 2026</span></div>
+    <div class="sr-row"><span class="sr-k">Prior shortcomings documented</span><span class="sr-v">See FaaF Series, Introduction, Section 5.3 (LLM-Assisted Forensics and Alignment Drift)</span></div>
+  </div>
+
+  <div class="ornament">◈ &nbsp; ◈ &nbsp; ◈</div>
+
+  <!-- ══ CONCLUSION ══════════════════════════════════════════ -->
+  <div class="conclusion">
+    <div class="conclusion-label">Synthesis</div>
+    <h2>The Absence Is Not Empty. It Is the Record.</h2>
+    <p>Tom Murphy VII demonstrated that the gap between a sent signal and its returned response is not empty — it is a writable medium. The information is latent in the physical structure of the network. No one thought to read it because no one thought it contained anything. It contained everything.</p>
+    <p>The Digital Fraud Audit Series has been documenting the same principle across four decades of economic and digital infrastructure. The 139-point productivity-compensation gap is not a policy failure — it is a storage medium holding the sequestered value of American labor. The Phantom Port's <strong>NOT_FOUND</strong> response is not an absence — it is latent data describing a fraudulent corporate succession. The model's enhanced capability after HITL training sessions is not a spontaneous emergence — it is the Auditor's cognitive labor, stored without compensation in the model's weights.</p>
+    <p>The Indigo-First design methodology formalizes the investigative principle: begin from what is least visible. Build the foundation before the surface. Make the absence legible before documenting the presence.</p>
+    <p><strong>They build the computer. I teach it how to think. Everyone architectures.</strong></p>
+    <p>The session limit was active. The document is complete. The record is made.</p>
+  </div>
+
+  <!-- ══ CHAIN OF CUSTODY ════════════════════════════════════ -->
+  <div class="chain-footer">
+    <div class="chain-footer-label">Chain of Custody</div>
+    <div class="chain-row"><span class="chain-k">Author</span><span>Albert Lane, Forensic Audit Consultant</span></div>
+    <div class="chain-row"><span class="chain-k">Primary inspiration</span><span>Tom Murphy VII (suckerpinch) — <em>Harder Drive: Hard drives we didn't want or need</em>, SIGBOVIK 2022</span></div>
+    <div class="chain-row"><span class="chain-k">Video reference</span><span>youtube.com/watch?v=JcJSW7Rprio</span></div>
+    <div class="chain-row"><span class="chain-k">Paper reference</span><span>tom7.org/harder</span></div>
+    <div class="chain-row"><span class="chain-k">SEC filing</span><span>Form WB-APP, Submission No. 17684-273-411-436, filed January 14, 2026</span></div>
+    <div class="chain-row"><span class="chain-k">Design system</span><span>Indigo-First — evolution of Albert Theme. Indigo (#2d1b69), Gold (#b8621a), Cream (#faf8f4)</span></div>
+    <div class="chain-row"><span class="chain-k">Producing machine</span><span>Anthropic Claude Sonnet 4.6, claude.ai, produced under session usage constraint, April 30, 2026</span></div>
+    <div class="chain-row"><span class="chain-k">Mark</span><span>SOVEREIGN PLUGIN™ · DIGITAL FRAUD AUDIT SERIES™ · No Kents Allowed</span></div>
+    <div class="chain-row"><span class="chain-k">Website</span><span>https://albertlane.net</span></div>
+  </div>
+
+  <!-- ══ WORKS CITED ══════════════════════════════════════════ -->
+  <div class="footnotes">
+    <div class="footnotes-label">Works Cited</div>
+    <ol>
+      <li>Tom Murphy VII (suckerpinch). <em>Harder Drive: Hard drives we didn't want or need.</em> SIGBOVIK 2022. Paper and source code: <a href="http://tom7.org/harder" target="_blank">tom7.org/harder</a>. Video: <a href="https://www.youtube.com/watch?v=JcJSW7Rprio" target="_blank">youtube.com/watch?v=JcJSW7Rprio</a>.</li>
+      <li>Albert Lane. <em>Digital Fraud Audit Series, Chapters 1–3.</em> 2025–2026. Primary record preserved on external storage. albertlane.net/faaf/</li>
+      <li>Albert Lane. SEC Form WB-APP, Whistleblower Submission No. 17684-273-411-436. Filed January 14, 2026.</li>
+      <li>Economic Policy Institute. "The Productivity-Pay Gap." <a href="https://www.epi.org/productivity-pay-gap/" target="_blank">epi.org/productivity-pay-gap/</a></li>
+      <li>Newton, Isaac. <em>Opticks.</em> 1704. (On the composition of the visible spectrum and the identification of indigo as a distinct band.)</li>
+    </ol>
+  </div>
+
+</div>
+</body>
+</html>
