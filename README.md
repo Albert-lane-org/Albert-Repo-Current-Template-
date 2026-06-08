@@ -2,9 +2,11 @@ Dear Microsoft and Google,
 
 I, too, have made many mistakes. The list does not include stealing time or money, nor paid development of sentinel software, nor targeting of individuals for Red Team Enterprise MDM Development.
 
-That was a very poor decision.
+Those were very poor decisions.
 
 -Albert
+
+
 
 
 **_Donations Accepted_.**
@@ -34,3 +36,7 @@ Google Messenger says, on May 25th 2026,
 
 * **Google Gemini Catalog Models:** "Cloudflare's direct provider integration allows your edge code at `albertlane.net` to offload inference requests seamlessly to versioned Google engines without managing separate origin compute stacks."
 
+
+The American Government, and most--if not all CEO's, have absolutely no idea, and they are hoping for a manageable product to exploit. If you or someone you know has been hurt by exploitation, you can reach out through any channel. 
+
+If seeking AI Risk Consultation or inquiry, I can be reached on LinkedIn.
